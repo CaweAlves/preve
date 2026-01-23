@@ -11,7 +11,6 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Category } from '@/types/models/category';
 
@@ -35,7 +34,6 @@ const deleteCategory = () => {
 
 <template>
     <AlertDialog :open="open">
-        <AlertDialogTrigger>Open</AlertDialogTrigger>
         <AlertDialogContent>
             <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -50,7 +48,7 @@ const deleteCategory = () => {
                     Cancel
                 </AlertDialogCancel>
                 <AlertDialogAction @click="deleteCategory">
-                    Continue
+                    Remove
                 </AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>

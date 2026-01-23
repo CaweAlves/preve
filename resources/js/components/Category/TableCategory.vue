@@ -39,12 +39,12 @@ defineProps<{
 
 <template>
   <Table>
-    <TableCaption>A list yours categories</TableCaption>
+    <TableCaption>Your Categories Income</TableCaption>
     <TableHeader>
       <TableRow>
-        <TableHead> Name </TableHead>
+        <TableHead>Name</TableHead>
         <TableHead>Description</TableHead>
-        <TableHead>Actions</TableHead>
+        <TableHead class="text-right">Actions</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -69,17 +69,14 @@ defineProps<{
         <TableCell>
           <p class="text-sm text-muted-foreground">
             {{
-              category.description &&
-              category.description.length > 25
+              category.description && category.description.length > 25
                 ? category.description.slice(0, 25) + '...'
                 : category.description
             }}
           </p>
         </TableCell>
-        <TableCell>
-          <div
-            class="inline-flex items-center justify-center rounded p-1.5"
-          >
+        <TableCell class="flex justify-end pr-0">
+          <div class="inline-flex items-end justify-center rounded p-1.5">
             <Button
               @click="openEditDialog(category)"
               size="sm"
@@ -100,15 +97,15 @@ defineProps<{
         </TableCell>
       </TableRow>
     </TableBody>
+
+    <EditCategoryDialog
+      v-model:open="showEditDialog"
+      :category="selectedCategory"
+    />
+
+    <DeleteCategoryDialog
+      v-model:open="showDeleteDialog"
+      :category="selectedCategory"
+    />
   </Table>
-
-  <EditCategoryDialog
-    v-model:open="showEditDialog"
-    :category="selectedCategory"
-  />
-
-  <DeleteCategoryDialog
-    v-model:open="showDeleteDialog"
-    :category="selectedCategory"
-  />
 </template>

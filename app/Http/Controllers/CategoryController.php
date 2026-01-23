@@ -52,7 +52,7 @@ class CategoryController extends Controller
         $category->update($request->all());
 
         // TODO: retornar um Toast Message
-        return Inertia::render('Category');
+        return to_route('categories.index');
     }
 
     /**
@@ -65,6 +65,6 @@ class CategoryController extends Controller
         $category->delete();
 
         // TODO: retornar um toast message
-        return Inertia::render('Category');
+        return to_route('categories.index');
     }
 }
