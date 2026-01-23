@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Trash, Edit } from 'lucide-vue-next';
+import { ref } from 'vue';
 
+import DeleteCategoryDialog from '@/components/Category/DeleteCategoryDialog.vue';
 import { Button } from '@/components/ui/button';
 import {
     Table,
@@ -14,6 +16,14 @@ import {
 import { getColorClass } from '@/lib/category-colors';
 import { getIconComponent } from '@/lib/category-icons';
 import { Category } from '@/types/models/category';
+
+const showDeleteDialog = ref(false);
+const selectedCategory = ref<Category | null>(null);
+
+const openDeleteDialog = (category: Category) => {
+    selectedCategory.value = category;
+    showDeleteDialog.value = true;
+};
 
 defineProps<{
     categories: Category[];
@@ -52,18 +62,26 @@ defineProps<{
                 <TableCell>
                     <p class="text-sm text-muted-foreground">
                         {{
-                            category.description && category.description.length > 25
+                            category.description &&
+                            category.description.length > 25
                                 ? category.description.slice(0, 25) + '...'
                                 : category.description
                         }}
                     </p>
                 </TableCell>
                 <TableCell>
-                    <div class="inline-flex items-center justify-center rounded p-1.5">
+                    <div
+                        class="inline-flex items-center justify-center rounded p-1.5"
+                    >
                         <Button size="sm" variant="secondary" class="mr-2">
                             <Edit :size="18" />
                         </Button>
-                        <Button size="sm" variant="destructive">
+
+                        <Button
+                            @click="openDeleteDialog(category)"
+                            size="sm"
+                            variant="destructive"
+                        >
                             <Trash :size="18" />
                         </Button>
                     </div>
@@ -71,4 +89,9 @@ defineProps<{
             </TableRow>
         </TableBody>
     </Table>
+
+    <DeleteCategoryDialog
+        v-model:open="showDeleteDialog"
+        :category="selectedCategory"
+    />
 </template>
