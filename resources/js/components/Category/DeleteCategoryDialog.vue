@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { router } from '@inertiajs/vue3';
+import { route } from 'ziggy-js';
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -14,9 +17,20 @@ import { Category } from '@/types/models/category';
 
 const open = defineModel<boolean>('open', { required: true });
 
-defineProps<{
+const props = defineProps<{
     category: Category | null;
 }>();
+
+const deleteCategory = () => {
+    const category = props.category;
+    if (!category) return;
+
+    router.delete(route('categories.destroy', category.id), {
+        onSuccess: () => {
+            open.value = false;
+        },
+    });
+};
 </script>
 
 <template>
@@ -32,10 +46,12 @@ defineProps<{
                 </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-                <AlertDialogCancel @click="open = false"
-                    >Cancel</AlertDialogCancel
-                >
-                <AlertDialogAction>Continue</AlertDialogAction>
+                <AlertDialogCancel @click="open = false">
+                    Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction @click="deleteCategory">
+                    Continue
+                </AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
     </AlertDialog>
