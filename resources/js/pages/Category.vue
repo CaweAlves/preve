@@ -29,9 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Category" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div
-            class="flex h-full flex-1 flex-col gap-2 overflow-x-auto rounded-xl p-4"
-        >
+        <div class="flex h-full flex-1 flex-col gap-2 overflow-x-auto rounded-xl p-4">
             <!-- HEADING -->
             <Heading
                 title="Category"
