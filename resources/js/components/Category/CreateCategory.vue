@@ -1,9 +1,23 @@
 <script setup lang="ts">
+import { Form } from '@inertiajs/vue3';
 import { Plus } from 'lucide-vue-next';
+import { route } from 'ziggy-js';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { availableColors } from '@/lib/category-colors';
+import { availableIcons, getIconComponent } from '@/lib/category-icons';
+import { capitalizeFirstLetter } from '@/lib/utils';
 </script>
 
 <template>
@@ -13,7 +27,11 @@ import { Label } from '@/components/ui/label';
       <p class="text-sm text-muted-foreground">New Category</p>
     </div>
 
-    <form class="flex items-center gap-2">
+    <Form
+      class="flex items-center gap-2"
+      :action="route('categories.store')"
+      method="POST"
+    >
       <div class="grid gap-1">
         <Label for="name"> Name </Label>
         <Input id="name" name="name" placeholder="Category Name" />
@@ -24,8 +42,54 @@ import { Label } from '@/components/ui/label';
         <Input id="slug" name="slug" placeholder="category-slug" />
       </div>
 
+      <div class="grid gap-1">
+        <Label for="color"> Color </Label>
+        <Select name="color">
+          <SelectTrigger class="w-[180px]">
+            <SelectValue placeholder="Select a color" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Color</SelectLabel>
+              <SelectItem
+                v-for="color in availableColors"
+                :value="color"
+                :key="color"
+              >
+                {{ capitalizeFirstLetter(color) }}
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div class="grid gap-1">
+        <Label for="icon"> Icon </Label>
+
+        <Select name="icon">
+          <SelectTrigger class="w-[150px]">
+            <SelectValue placeholder="Select a icon" />
+          </SelectTrigger>
+          <SelectContent class="w-[50px]">
+            <SelectGroup>
+              <SelectItem
+                v-for="icon in availableIcons"
+                :value="icon"
+                :key="icon"
+                class="flex items-center justify-center"
+              >
+                <component
+                  :is="getIconComponent(icon)"
+                  class="size-5 text-gray-500"
+                />
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
       <Button type="submit"> Create </Button>
-    </form>
+    </Form>
   </div>
 </template>
 
