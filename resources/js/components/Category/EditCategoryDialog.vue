@@ -2,6 +2,7 @@
 import { useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -62,6 +63,7 @@ const updateCategory = () => {
               placeholder="Category Name"
               v-model="form.name"
             />
+            <InputError :message="form.errors.name" />
           </div>
 
           <div class="grid gap-3">
@@ -72,6 +74,7 @@ const updateCategory = () => {
               placeholder="category-slug"
               v-model="form.slug"
             />
+            <InputError :message="form.errors.slug" />
           </div>
 
           <div class="col-span-2 grid gap-3">
@@ -82,6 +85,7 @@ const updateCategory = () => {
               placeholder="This is a category for..."
               v-model="form.description"
             />
+            <InputError :message="form.errors.description" />
           </div>
 
           <div class="col-span-2 grid gap-3">
@@ -110,6 +114,7 @@ const updateCategory = () => {
                 />
               </label>
             </div>
+            <InputError :message="form.errors.icon" />
           </div>
 
           <div class="col-span-2 grid gap-3">
@@ -144,6 +149,7 @@ const updateCategory = () => {
                 />
               </label>
             </div>
+            <InputError :message="form.errors.color" />
           </div>
         </div>
 
@@ -151,7 +157,9 @@ const updateCategory = () => {
           <DialogClose as-child>
             <Button variant="outline" @click="open = false"> Cancel </Button>
           </DialogClose>
-          <Button type="button" @click="updateCategory"> Save changes </Button>
+          <Button type="button" @click="updateCategory" :disabled="form.processing">
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </form>

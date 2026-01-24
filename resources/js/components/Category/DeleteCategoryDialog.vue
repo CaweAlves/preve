@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { router } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 
 import {
@@ -20,11 +20,13 @@ const props = defineProps<{
     category: Category | null;
 }>();
 
+const form = useForm({});
+
 const deleteCategory = () => {
     const category = props.category;
     if (!category) return;
 
-    router.delete(route('categories.destroy', category.id), {
+    form.delete(route('categories.destroy', category.id), {
         onSuccess: () => {
             open.value = false;
         },
@@ -47,7 +49,7 @@ const deleteCategory = () => {
                 <AlertDialogCancel @click="open = false">
                     Cancel
                 </AlertDialogCancel>
-                <AlertDialogAction @click="deleteCategory">
+                <AlertDialogAction @click="deleteCategory" :disabled="form.processing">
                     Remove
                 </AlertDialogAction>
             </AlertDialogFooter>

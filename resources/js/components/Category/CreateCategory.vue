@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Form } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import { Plus } from 'lucide-vue-next';
 import { route } from 'ziggy-js';
 
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,9 +16,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { availableColors } from '@/lib/category-colors';
+import { availableColors, getColorClass } from '@/lib/category-colors';
 import { availableIcons, getIconComponent } from '@/lib/category-icons';
-import { capitalizeFirstLetter } from '@/lib/utils';
+import { capitalizeFirstLetter, cn } from '@/lib/utils';
+
+const form = useForm({
+  name: '',
+  slug: '',
+  description: '',
+  color: '',
+  icon: '',
+});
+
+const createCategory = () => {
+  form.post(route('categories.store'), {
+    onSuccess: () => {
+      form.reset();
+    },
+  });
+};
 </script>
 
 <template>
@@ -27,36 +44,55 @@ import { capitalizeFirstLetter } from '@/lib/utils';
       <p class="text-sm text-muted-foreground">New Category</p>
     </div>
 
-    <Form
-      class="flex items-end gap-2"
-      :action="route('categories.store')"
-      method="POST"
-    >
-      <div class="grid gap-1">
+    <form class="flex w-full flex-wrap items-end gap-3" @submit.prevent="createCategory">
+      <div class="grid min-w-[200px] flex-1 gap-1">
         <Label for="name"> Name * </Label>
-        <Input id="name" name="name" placeholder="Category Name" />
+        <Input
+          id="name"
+          name="name"
+          placeholder="Category Name"
+          v-model="form.name"
+        />
+        <InputError :message="form.errors.name" />
       </div>
 
-      <div class="grid gap-1">
+      <div class="grid min-w-[200px] flex-1 gap-1">
         <!-- // TODO: Conforme o usuário for digitando o nome, preencher automaticamente o slug -->
         <Label for="slug"> Slug </Label>
-        <Input id="slug" name="slug" placeholder="category-slug" />
+        <Input
+          id="slug"
+          name="slug"
+          placeholder="category-slug"
+          v-model="form.slug"
+        />
+        <InputError :message="form.errors.slug" />
       </div>
 
-      <div class="grid w-[400px] gap-1">
-        <Label for="description"> Descritpion </Label>
+      <div class="grid min-w-[300px] flex-[2] gap-1">
+        <Label for="description"> Description </Label>
         <Input
           id="description"
           name="description"
           placeholder="Your description"
+          v-model="form.description"
         />
+        <InputError :message="form.errors.description" />
       </div>
 
-      <div class="grid gap-1">
+      <div class="grid min-w-[150px] gap-1">
         <Label for="color"> Color </Label>
-        <Select name="color">
-          <SelectTrigger class="w-[180px]">
-            <SelectValue placeholder="Select a color" />
+        <Select v-model="form.color">
+          <SelectTrigger>
+            <SelectValue placeholder="Select a color">
+              <div v-if="form.color" class="flex items-center gap-2">
+                <div
+                  :class="
+                    cn('h-4 w-4 rounded', getColorClass(form.color, 'bg', 500))
+                  "
+                />
+                <span>{{ capitalizeFirstLetter(form.color) }}</span>
+              </div>
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -71,14 +107,20 @@ import { capitalizeFirstLetter } from '@/lib/utils';
             </SelectGroup>
           </SelectContent>
         </Select>
+        <InputError :message="form.errors.color" />
       </div>
 
-      <div class="grid gap-1">
+      <div class="grid min-w-[150px] gap-1">
         <Label for="icon"> Icon </Label>
-
-        <Select name="icon">
-          <SelectTrigger class="w-[150px]">
-            <SelectValue placeholder="Select a icon" />
+        <Select v-model="form.icon">
+          <SelectTrigger>
+            <SelectValue placeholder="Select a icon">
+              <component
+                v-if="form.icon"
+                :is="getIconComponent(form.icon)"
+                class="size-5 text-gray-500"
+              />
+            </SelectValue>
           </SelectTrigger>
           <SelectContent class="w-[50px]">
             <SelectGroup>
@@ -97,10 +139,13 @@ import { capitalizeFirstLetter } from '@/lib/utils';
             </SelectGroup>
           </SelectContent>
         </Select>
+        <InputError :message="form.errors.icon" />
       </div>
 
-      <Button type="submit"> Create </Button>
-    </Form>
+      <Button type="submit" :disabled="form.processing" class="min-w-[100px]">
+        Create
+      </Button>
+    </form>
   </div>
 </template>
 
