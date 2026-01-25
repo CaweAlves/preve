@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
-import { route } from 'ziggy-js';
 
 import {
     AlertDialog,
@@ -12,6 +11,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { destroy } from '@/routes/categories';
 import { Category } from '@/types/models/category';
 
 const open = defineModel<boolean>('open', { required: true });
@@ -26,10 +26,10 @@ const deleteCategory = () => {
     const category = props.category;
     if (!category) return;
 
-    form.delete(route('categories.destroy', category.id), {
+    form.submit(destroy(category.id), {
         onSuccess: () => {
             open.value = false;
-        },
+        }
     });
 };
 </script>
@@ -41,8 +41,7 @@ const deleteCategory = () => {
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                     This action cannot be undone. This will permanently delete
-                    your Category "{{ category?.name }}" and remove your data
-                    from our servers.
+                    the category "{{ category?.name }}".
                 </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -50,7 +49,7 @@ const deleteCategory = () => {
                     Cancel
                 </AlertDialogCancel>
                 <AlertDialogAction @click="deleteCategory" :disabled="form.processing">
-                    Remove
+                    Confirm
                 </AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
