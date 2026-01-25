@@ -1,81 +1,81 @@
 <script setup lang="ts">
-import {
-    ArrowRightLeft,
-    Github,
-    Home,
-    RefreshCw,
-    Tags,
-} from 'lucide-vue-next';
+import { ArrowRightLeft, Github, Home, RefreshCw, Tags } from 'lucide-vue-next';
 
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import categories from '@/routes/categories';
+import tags from '@/routes/tags';
 import { type NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Início',
-        href: dashboard(),
-        icon: Home,
-    },
-    {
-        title: 'Movimentações',
-        href: '#',
-        icon: ArrowRightLeft,
-    },
-    {
-        title: 'Recorrentes',
-        href: '#',
-        icon: RefreshCw,
-    },
-    {
-        title: 'Categorias',
-        href: categories.index(),
-        icon: Tags,
-    },
+  {
+    title: 'Início',
+    href: dashboard(),
+    icon: Home,
+  },
+  {
+    title: 'Movimentações',
+    href: '#',
+    icon: ArrowRightLeft,
+  },
+  {
+    title: 'Recorrentes',
+    href: '#',
+    icon: RefreshCw,
+  },
+  {
+    title: 'Categorias',
+    href: categories.index(),
+    icon: Tags,
+  },
+  {
+    title: 'Tags',
+    href: tags.index(),
+    icon: Tags,
+  }
 ];
 
 const footerNavItems: NavItem[] = [
-    {
-        title: 'Github',
-        href: 'https://github.com/combizera/preve',
-        icon: Github,
-    },
+  {
+    title: 'Github',
+    href: 'https://github.com/combizera/preve',
+    icon: Github,
+  },
 ];
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
-        <SidebarHeader>
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
-                        <AppLogo />
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            </SidebarMenu>
-        </SidebarHeader>
+  <Sidebar collapsible="icon" variant="inset">
+    <SidebarHeader>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton size="lg" as-child>
+            <AppLogo />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
 
-        <SidebarContent>
-            <NavMain :items="mainNavItems" />
-        </SidebarContent>
+    <SidebarContent>
+      <NavMain :items="mainNavItems" />
+    </SidebarContent>
 
-        <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
-            <NavUser />
-        </SidebarFooter>
-    </Sidebar>
-    <slot />
+    <SidebarFooter>
+      <NavFooter :items="footerNavItems" />
+      <NavUser />
+    </SidebarFooter>
+  </Sidebar>
+  <slot />
 </template>
