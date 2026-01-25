@@ -19,9 +19,11 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Auth::user()->transactions();
+        $categories = Auth::user()->categories()->get();
 
         return Inertia::render('Transaction', [
             'transactions' => $transactions,
+            'categories' => $categories,
         ]);
     }
 

@@ -12,12 +12,12 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { destroy } from '@/routes/categories';
-import { Category } from '@/types/models/category';
+import { ICategory } from '@/types/models/category';
 
 const open = defineModel<boolean>('open', { required: true });
 
 const props = defineProps<{
-    category: Category | null;
+    category: ICategory | null;
 }>();
 
 const form = useForm({});

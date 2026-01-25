@@ -12,12 +12,12 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { destroy } from '@/routes/tags';
-import { Tag } from '@/types/models/tag';
+import { ITag } from '@/types/models/tag';
 
 const open = defineModel<boolean>('open', { required: true });
 
 const props = defineProps<{
-  tag: Tag | null;
+  tag: ITag | null;
 }>();
 
 const form = useForm({});
