@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
+import { ArrowDownLeft, ArrowUpRight } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
 
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -25,6 +27,7 @@ import {
 } from '@/components/ui/select';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { TRANSACTION_TYPE } from '@/enums/transaction-type';
+import { extractNumbers, formatCentsToDisplay, parseToCents } from '@/lib/currency';
 import { store } from '@/routes/transactions';
 import { ICategory } from '@/types/models/category';
 import { ITag } from '@/types/models/tag';
@@ -37,14 +40,25 @@ defineProps<{
   tags: ITag[];
 }>();
 
+const rawAmount = ref('');
+
 const form = useForm<ITransaction>({
   category_id: 0,
-  tag_id: 0,
+  tag_id: null,
   amount: 0,
   type: TRANSACTION_TYPE.EXPENSE,
   description: '',
-  notes: '' | null,
+  notes: null,
   transaction_date: new Date().toISOString().split('T')[0],
+});
+
+const displayAmount = computed({
+  get: () => formatCentsToDisplay(rawAmount.value),
+  set: (value: string) => {
+    const numbers = extractNumbers(value);
+    rawAmount.value = numbers;
+    form.amount = parseToCents(numbers);
+  },
 });
 
 const createTransaction = () => {
@@ -52,6 +66,7 @@ const createTransaction = () => {
     onSuccess: () => {
       open.value = false;
       form.reset();
+      rawAmount.value = '';
     },
   });
 };
@@ -68,6 +83,55 @@ const createTransaction = () => {
           </DialogDescription>
         </DialogHeader>
 
+        <!-- Type -->
+        <div class="grid gap-3">
+          <Label for="type"> Type </Label>
+          <ToggleGroup v-model="form.type" class="w-full">
+            <ToggleGroupItem :value="TRANSACTION_TYPE.INCOME" class="flex-1 gap-2">
+              <ArrowUpRight :size="16" />
+              Income
+            </ToggleGroupItem>
+            <ToggleGroupItem :value="TRANSACTION_TYPE.EXPENSE" class="flex-1 gap-2">
+              <ArrowDownLeft :size="16" />
+              Expense
+            </ToggleGroupItem>
+          </ToggleGroup>
+          <InputError :message="form.errors.type" />
+        </div>
+
+        <!-- Amount & Date -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="grid gap-3">
+            <Label for="amount"> Amount </Label>
+            <Input
+              id="amount"
+              type="text"
+              inputmode="numeric"
+              placeholder="0,00"
+              v-model="displayAmount"
+              @keypress="(e: KeyboardEvent) => {
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }"
+              class="text-right font-mono"
+            />
+            <InputError :message="form.errors.amount" />
+          </div>
+
+          <div class="grid gap-3">
+            <Label for="transaction_date"> Date </Label>
+            <Input
+              id="transaction_date"
+              type="date"
+              v-model="form.transaction_date"
+              class="[&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:dark:invert-0"
+            />
+            <InputError :message="form.errors.transaction_date" />
+          </div>
+        </div>
+
+        <!-- Category & Tag -->
         <div class="grid grid-cols-2 gap-4">
           <div class="grid gap-3">
             <Label for="category"> Category </Label>
@@ -92,7 +156,7 @@ const createTransaction = () => {
           </div>
 
           <div class="grid gap-3">
-            <Label for="tag"> Tag </Label>
+            <Label for="tag" class="text-muted-foreground"> Tag (Optional) </Label>
             <Select v-model="form.tag_id">
               <SelectTrigger class="w-full">
                 <SelectValue placeholder="Select a tag" />
@@ -110,63 +174,26 @@ const createTransaction = () => {
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-          <div class="grid gap-3">
-            <Label for="amount"> Amount </Label>
-            <Input
-              id="amount"
-              type="number"
-              step="0.01"
-              placeholder="0.00"
-              v-model.number="form.amount"
-            />
-            <InputError :message="form.errors.amount" />
-          </div>
-
-          <div class="grid gap-3">
-            <Label for="type"> Type </Label>
-            <ToggleGroup v-model="form.type" class="w-full">
-              <ToggleGroupItem :value="TRANSACTION_TYPE.INCOME" class="flex-1">
-                Income
-              </ToggleGroupItem>
-              <ToggleGroupItem :value="TRANSACTION_TYPE.EXPENSE" class="flex-1">
-                Expense
-              </ToggleGroupItem>
-            </ToggleGroup>
-            <InputError :message="form.errors.type" />
-          </div>
+        <!-- Description -->
+        <div class="grid gap-3">
+          <Label for="description"> Description </Label>
+          <Input
+            id="description"
+            placeholder="Enter transaction description"
+            v-model="form.description"
+          />
+          <InputError :message="form.errors.description" />
         </div>
 
-        <div class="grid gap-4">
-          <div class="grid gap-3">
-            <Label for="description"> Description </Label>
-            <Input
-              id="description"
-              placeholder="Enter transaction description"
-              v-model="form.description"
-            />
-            <InputError :message="form.errors.description" />
-          </div>
-
-          <div class="grid gap-3">
-            <Label for="transaction_date"> Date </Label>
-            <Input
-              id="transaction_date"
-              type="date"
-              v-model="form.transaction_date"
-            />
-            <InputError :message="form.errors.transaction_date" />
-          </div>
-
-          <div class="grid gap-3">
-            <Label for="notes"> Notes (Optional) </Label>
-            <Input
-              id="notes"
-              placeholder="Additional notes..."
-              v-model="form.notes"
-            />
-            <InputError :message="form.errors.notes" />
-          </div>
+        <!-- Notes -->
+        <div class="grid gap-3">
+          <Label for="notes" class="text-muted-foreground"> Notes (Optional) </Label>
+          <Input
+            id="notes"
+            placeholder="Additional notes..."
+            v-model="form.notes"
+          />
+          <InputError :message="form.errors.notes" />
         </div>
 
         <DialogFooter>
