@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 
-class CategoryPolicy
+class TagPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -18,7 +18,7 @@ class CategoryPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Category $category): bool
+    public function view(User $user, Tag $tag): bool
     {
         return true;
     }
@@ -28,22 +28,22 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Category $category): bool
+    public function update(User $user, Tag $tag): bool
     {
-        return $user->id === $category->user_id;
+        return $user->id === $tag->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Category $category): bool
+    public function delete(User $user, Tag $tag): bool
     {
-        return $user->id === $category->user_id;
+        return $user->id === $tag->user_id;
     }
 }
