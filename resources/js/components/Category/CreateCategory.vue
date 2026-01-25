@@ -22,7 +22,6 @@ import { store } from '@/routes/categories';
 
 const form = useForm({
   name: '',
-  slug: '',
   description: '',
   color: '',
   icon: '',
@@ -42,8 +41,8 @@ const createCategory = () => {
       <p class="text-sm text-muted-foreground">New Category</p>
     </div>
 
-    <form class="flex w-full flex-wrap items-end gap-3" @submit.prevent="createCategory">
-      <div class="flex flex-col gap-2 justify-start h-full">
+    <form class="flex w-full flex-wrap items-start gap-3" @submit.prevent="createCategory">
+      <div class="flex flex-col gap-2 justify-start min-w-1/4">
         <Label for="name">Name</Label>
         <Input
           id="name"
@@ -54,19 +53,7 @@ const createCategory = () => {
         <InputError :message="form.errors.name" />
       </div>
 
-      <div class="flex flex-col gap-2 justify-start h-full">
-        <!-- // TODO: Conforme o usuário for digitando o nome, preencher automaticamente o slug -->
-        <Label for="slug">Slug</Label>
-        <Input
-          id="slug"
-          name="slug"
-          placeholder="category-slug"
-          v-model="form.slug"
-        />
-        <InputError :message="form.errors.slug" />
-      </div>
-
-      <div class="flex flex-col gap-2 flex-1 justify-start h-full">
+      <div class="flex flex-col gap-2 flex-1 justify-start min-w-1/4">
         <Label for="description">Description</Label>
         <Input
           id="description"
@@ -77,7 +64,7 @@ const createCategory = () => {
         <InputError :message="form.errors.description" />
       </div>
 
-      <div class="flex flex-col gap-2 justify-start h-full">
+      <div class="flex flex-col gap-2 justify-start">
         <Label for="color">Color</Label>
         <Select v-model="form.color">
           <SelectTrigger class="w-full min-w-[150px]">
@@ -105,7 +92,7 @@ const createCategory = () => {
         <InputError :message="form.errors.color" />
       </div>
 
-      <div class="flex flex-col gap-2 justify-start h-full">
+      <div class="flex flex-col gap-2 justify-start">
         <Label for="icon">Icon</Label>
         <Select v-model="form.icon">
           <SelectTrigger :class="cn('w-full min-w-[150px]', form.icon && 'pl-1')">
