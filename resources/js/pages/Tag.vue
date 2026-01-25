@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
-import TableCategory from '@/components/Category/TableCategory.vue';
 import Heading from '@/components/Heading.vue';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import CreateTag from '@/components/Tag/CreateTag.vue';
+import TableTag from '@/components/Tag/TableTag.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import tagRoutes from '@/routes/tags';
@@ -40,7 +40,7 @@ const breadcrumbs: BreadcrumbItem[] = [
       <CreateTag />
 
       <!-- TABLE - CRUD -->
-      <TableCategory :categories />
+      <TableTag :tags />
 
       <!-- PLACEHOLDER -->
       <div
