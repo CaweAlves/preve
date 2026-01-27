@@ -54,9 +54,11 @@ const breadcrumbs: BreadcrumbItem[] = [
       <Heading
         title="Transaction"
         description="Manage your transactions here."
-      />
+        :hasActions="true"
+      >
+        <Button type="button" @click="openCreateDialog"> Create </Button>
+      </Heading>
 
-      <Button type="button" @click="openCreateDialog"> Create </Button>
 
       <ContainerTransactions :transactions="transactions" />
 

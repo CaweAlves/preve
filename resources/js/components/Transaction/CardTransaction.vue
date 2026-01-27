@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import ActionGroup from '@/components/ActionGroup.vue';
 import DeleteTransactionDialog from '@/components/Transaction/DeleteTransactionDialog.vue';
@@ -9,12 +9,31 @@ import EditButton from '@/components/ui/button/EditButton.vue';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
+import { getIconComponent } from '@/lib/category-icons';
+import { formatCentsToDisplay } from '@/lib/currency';
+import { capitalizeFirstLetter, cn } from '@/lib/utils';
 import { ITransaction } from '@/types/models/transaction';
 
-defineProps<{
+const props = defineProps<{
   transaction: ITransaction;
 }>();
+
+const formattedAmount = computed(() =>
+  formatCentsToDisplay(props.transaction.amount),
+);
+
+const categoryIcon = computed(() =>
+  getIconComponent(props.transaction.category?.icon ?? null),
+);
+
+const amountClass = computed(() =>
+  cn(
+    'text-sm font-medium',
+    props.transaction.type === 'expense'
+      ? "text-foreground before:content-['-']"
+      : 'text-positive'
+  )
+);
 
 const showDeleteDialog = ref(false);
 const showEditDialog = ref(false);
@@ -37,22 +56,26 @@ const openDeleteDialog = (transaction: ITransaction) => {
   >
     <div class="flex items-center gap-4">
       <Checkbox id="transaction" class="size-5" />
-      <div class="space-y-0">
+      <div class="space-y-1">
         <Label
           for="transaction"
           class="text-sm leading-none font-medium text-foreground"
         >
           {{ transaction.description }}
         </Label>
-        <span class="text-xs leading-none font-medium text-muted-foreground">
-          {{ transaction.category?.name }} • {{ transaction.type }}
+        <span
+          class="flex items-center gap-1 text-xs leading-none font-medium text-muted-foreground"
+        >
+          <component :is="categoryIcon" :size="14" />
+          {{ transaction.category?.name }} •
+          {{ capitalizeFirstLetter(transaction.type) }}
         </span>
       </div>
     </div>
 
     <div>
-      <span :class="cn('text-sm font-medium text-muted-foreground', transaction.type === 'expense' ? 'text-destructive' : 'text-positive')">
-        {{ transaction.amount }}
+      <span :class="amountClass">
+        R$ {{ formattedAmount }}
       </span>
       <ActionGroup>
         <EditButton @click="openEditDialog(transaction)" />
