@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 
 import ActionGroup from '@/components/ActionGroup.vue';
+import DeleteTransactionDialog from '@/components/Transaction/DeleteTransactionDialog.vue';
 import EditTransactionDialog from '@/components/Transaction/EditTransactionDialog.vue';
 import DeleteButton from '@/components/ui/button/DeleteButton.vue';
 import EditButton from '@/components/ui/button/EditButton.vue';
@@ -60,6 +61,12 @@ const openDeleteDialog = (transaction: ITransaction) => {
   <EditTransactionDialog
     v-if="showEditDialog && selectedTransaction"
     v-model:open="showEditDialog"
+    :transaction="selectedTransaction"
+  />
+
+  <DeleteTransactionDialog
+    v-if="showDeleteDialog && selectedTransaction"
+    v-model:open="showDeleteDialog"
     :transaction="selectedTransaction"
   />
 </template>
