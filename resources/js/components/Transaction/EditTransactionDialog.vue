@@ -28,7 +28,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { TRANSACTION_TYPE } from '@/enums/transaction-type';
 import { extractNumbers, formatCentsToDisplay, parseToCents } from '@/lib/currency';
-import { store } from '@/routes/transactions';
+import { update } from '@/routes/transactions';
 import { ICategory } from '@/types/models/category';
 import { ITag } from '@/types/models/tag';
 import { ITransaction } from '@/types/models/transaction';
@@ -37,7 +37,6 @@ const open = defineModel<boolean>('open', { required: true });
 
 defineProps<{
   categories: ICategory[];
-  tags: ITag[];
 }>();
 
 const rawAmount = ref('');
@@ -61,8 +60,8 @@ const displayAmount = computed({
   },
 });
 
-const createTransaction = () => {
-  form.submit(store(), {
+const updateTransaction = () => {
+  form.submit(update(), {
     onSuccess: () => {
       open.value = false;
       form.reset();
@@ -77,9 +76,9 @@ const createTransaction = () => {
     <form>
       <DialogContent class="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle>Create Transaction</DialogTitle>
+          <DialogTitle>Update Transaction</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new transaction.
+            Fill in the details below to update a transaction.
           </DialogDescription>
         </DialogHeader>
 

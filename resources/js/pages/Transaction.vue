@@ -4,16 +4,19 @@ import { ref } from 'vue';
 
 import Heading from '@/components/Heading.vue';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import ContainerTransactions from '@/components/Transaction/ContainerTransactions.vue';
 import CreateTransactionDialog from '@/components/Transaction/CreateTransactionDialog.vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
-import transactions from '@/routes/transactions';
+import transactionRoutes from '@/routes/transactions';
 import type { BreadcrumbItem } from '@/types';
 import type { ICategory } from '@/types/models/category';
 import type { ITag } from '@/types/models/tag';
+import { ITransaction } from '@/types/models/transaction';
 
 defineProps<{
+  transactions: ITransaction[];
   categories: ICategory[];
   tags: ITag[];
 }>();
@@ -31,13 +34,13 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
   {
     title: 'Transactions',
-    href: transactions.index().url,
+    href: transactionRoutes.index().url,
   },
 ];
 </script>
 
 <template>
-  <Head title="Category" />
+  <Head title="Transaction" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div
@@ -49,9 +52,9 @@ const breadcrumbs: BreadcrumbItem[] = [
         description="Manage your transactions here."
       />
 
-      <Button type="button" @click="openCreateDialog">
-        Create
-      </Button>
+      <Button type="button" @click="openCreateDialog"> Create </Button>
+
+      <ContainerTransactions :transactions />
 
       <!-- CREATE -->
       <CreateTransactionDialog
