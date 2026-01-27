@@ -113,6 +113,7 @@ const displayAmount = defineModel<string>('displayAmount', { required: true });
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Tag</SelectLabel>
+            <SelectItem :value="null">None</SelectItem>
             <SelectItem v-for="tag in tags" :value="tag.id" :key="tag.id">
               {{ tag.name }}
             </SelectItem>
