@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateTransactionRequest;
+use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -18,7 +18,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Auth::user()->transactions()->with('category')->get();
+        $transactions = Auth::user()
+            ->transactions()
+            ->with(['category', 'tag'])
+            ->orderBy('transaction_date', 'desc')
+            ->get();
+
         $categories = Auth::user()->categories()->get();
         $tags = Auth::user()->tags()->get();
 
@@ -28,7 +33,7 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateTransactionRequest $request)
+    public function store(TransactionRequest $request)
     {
         $validated = $request->validated();
 
@@ -48,7 +53,7 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
         $this->authorize('update', $transaction);
 
