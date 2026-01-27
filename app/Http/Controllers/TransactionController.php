@@ -18,7 +18,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Auth::user()->transactions()->get();
+        $transactions = Auth::user()->transactions()->with('category')->get();
         $categories = Auth::user()->categories()->get();
         $tags = Auth::user()->tags()->get();
 

@@ -9,6 +9,7 @@ import EditButton from '@/components/ui/button/EditButton.vue';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 import { ITransaction } from '@/types/models/transaction';
 
 defineProps<{
@@ -34,20 +35,23 @@ const openDeleteDialog = (transaction: ITransaction) => {
   <Card
     class="flex flex-row items-center justify-between gap-2 rounded-md bg-sidebar p-4"
   >
-    <div class="flex items-center gap-2">
-      <Checkbox id="transaction" />
-      <div>
+    <div class="flex items-center gap-4">
+      <Checkbox id="transaction" class="size-5" />
+      <div class="space-y-0">
         <Label
           for="transaction"
-          class="text-sm leading-6 font-medium text-muted-foreground"
+          class="text-sm leading-none font-medium text-foreground"
         >
           {{ transaction.description }}
         </Label>
+        <span class="text-xs leading-none font-medium text-muted-foreground">
+          {{ transaction.category?.name }} • {{ transaction.type }}
+        </span>
       </div>
     </div>
 
     <div>
-      <span class="text-sm font-medium text-muted-foreground">
+      <span :class="cn('text-sm font-medium text-muted-foreground', transaction.type === 'expense' ? 'text-destructive' : 'text-positive')">
         {{ transaction.amount }}
       </span>
       <ActionGroup>
