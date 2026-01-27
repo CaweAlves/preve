@@ -41,6 +41,9 @@
     --color-destructive: var(--destructive);
     --color-destructive-foreground: var(--destructive-foreground);
 
+    --color-positive: var(--positive);
+    --color-positive-foreground: var(--positive-foreground);
+
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
@@ -106,6 +109,8 @@
     --accent-foreground: hsl(217 91% 20%);
     --destructive: hsl(0 84.2% 60.2%);
     --destructive-foreground: hsl(0 0% 98%);
+    --positive: hsl(97, 57%, 39%);
+    --positive-foreground: hsl(98, 41%, 69%);
     --border: hsl(0 0% 92.8%);
     --input: hsl(0 0% 89.8%);
     --ring: hsl(217 91% 48%);
@@ -143,6 +148,8 @@
     --accent-foreground: hsl(213 94% 85%);
     --destructive: hsl(0 84% 60%);
     --destructive-foreground: hsl(0 0% 98%);
+    --positive: hsl(97, 57%, 39%);
+    --positive-foreground: hsl(98, 41%, 69%);
     --border: hsl(0 0% 14.9%);
     --input: hsl(0 0% 14.9%);
     --ring: hsl(213 94% 68%);

@@ -15,12 +15,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { update } from '@/routes/tags';
-import { Tag } from '@/types/models/tag';
+import { ITag } from '@/types/models/tag';
 
 const open = defineModel<boolean>('open', { required: true });
 
 const props = defineProps<{
-  tag: Tag;
+  tag: ITag;
 }>();
 
 const form = useForm({

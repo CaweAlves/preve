@@ -4,8 +4,8 @@ import { ref } from 'vue';
 import ActionGroup from '@/components/ActionGroup.vue';
 import DeleteCategoryDialog from '@/components/Category/DeleteCategoryDialog.vue';
 import EditCategoryDialog from '@/components/Category/EditCategoryDialog.vue';
-import EditButton from '@/components/ui/button/EditButton.vue';
 import DeleteButton from '@/components/ui/button/DeleteButton.vue';
+import EditButton from '@/components/ui/button/EditButton.vue';
 import {
   Table,
   TableBody,
@@ -17,24 +17,24 @@ import {
 } from '@/components/ui/table';
 import { getColorClass } from '@/lib/category-colors';
 import { getIconComponent } from '@/lib/category-icons';
-import { Category } from '@/types/models/category';
+import { ICategory } from '@/types/models/category';
 
 const showDeleteDialog = ref(false);
 const showEditDialog = ref(false);
-const selectedCategory = ref<Category | null>(null);
+const selectedCategory = ref<ICategory | null>(null);
 
-const openEditDialog = (category: Category) => {
+const openEditDialog = (category: ICategory) => {
   selectedCategory.value = category;
   showEditDialog.value = true;
 };
 
-const openDeleteDialog = (category: Category) => {
+const openDeleteDialog = (category: ICategory) => {
   selectedCategory.value = category;
   showDeleteDialog.value = true;
 };
 
 defineProps<{
-  categories: Category[];
+  categories: ICategory[];
 }>();
 </script>
 
@@ -78,11 +78,11 @@ defineProps<{
         </TableCell>
         <TableCell class="text-right">
           <ActionGroup>
-            <EditButton 
+            <EditButton
               @click="openEditDialog(category)"
             />
 
-            <DeleteButton 
+            <DeleteButton
               @click="openDeleteDialog(category)"
             />
           </ActionGroup>

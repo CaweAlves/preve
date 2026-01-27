@@ -11,25 +11,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { destroy } from '@/routes/tags';
-import { ITag } from '@/types/models/tag';
+import { destroy } from '@/routes/transactions';
+import { ITransaction } from '@/types/models/transaction';
 
 const open = defineModel<boolean>('open', { required: true });
 
 const props = defineProps<{
-  tag: ITag | null;
+  transaction: ITransaction | null;
 }>();
 
 const form = useForm({});
 
-const deleteTag = () => {
-  const tag = props.tag;
-  if (!tag) return;
+const deleteTransaction = () => {
+  const transaction = props.transaction;
+  if (!transaction) return;
 
-  form.submit(destroy(tag.id), {
+  form.submit(destroy(transaction.id), {
     onSuccess: () => {
       open.value = false;
-    }
+    },
   });
 };
 </script>
@@ -40,15 +40,16 @@ const deleteTag = () => {
       <AlertDialogHeader>
         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
         <AlertDialogDescription>
-          This action cannot be undone. This will permanently delete
-          the tag "{{ tag?.name }}".
+          This action cannot be undone. This will permanently delete the
+          transaction "{{ transaction?.description }}".
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel>
-          Cancel
-        </AlertDialogCancel>
-        <AlertDialogAction @click="deleteTag" :disabled="form.processing">
+        <AlertDialogCancel> Cancel </AlertDialogCancel>
+        <AlertDialogAction
+          @click="deleteTransaction"
+          :disabled="form.processing"
+        >
           Confirm
         </AlertDialogAction>
       </AlertDialogFooter>

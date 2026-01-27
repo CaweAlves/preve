@@ -15,24 +15,24 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Tag } from '@/types/models/tag';
+import { ITag } from '@/types/models/tag';
 
 const showDeleteDialog = ref(false);
 const showEditDialog = ref(false);
-const selectedTag = ref<Tag | null>(null);
+const selectedTag = ref<ITag | null>(null);
 
-const openEditDialog = (tag: Tag) => {
+const openEditDialog = (tag: ITag) => {
   selectedTag.value = tag;
   showEditDialog.value = true;
 };
 
-const openDeleteDialog = (tag: Tag) => {
+const openDeleteDialog = (tag: ITag) => {
   selectedTag.value = tag;
   showDeleteDialog.value = true;
 };
 
 defineProps<{
-  tags: Tag[];
+  tags: ITag[];
 }>();
 </script>
 

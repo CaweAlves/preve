@@ -18,13 +18,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::query()
-            ->where('user_id', Auth::user()->id)
-            ->get();
+        $tags = Auth::user()->tags()->get();
 
-        return Inertia::render('Tag', [
-            'tags' => $tags,
-        ]);
+        return Inertia::render('Tag', compact('tags'));
     }
 
     /**

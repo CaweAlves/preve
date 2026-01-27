@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table
                 ->foreignIdFor(User::class)
                 ->constrained()
@@ -30,7 +29,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->integer('amount');
             $table->string('type')->default('EXPENSE');
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->text('notes')->nullable();
             $table->date('transaction_date');
             $table->timestamps();

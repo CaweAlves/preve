@@ -6,7 +6,7 @@ export type CategoryColor =
     | 'orange'
     | 'purple';
 
-export interface Category {
+export interface ICategory {
     id: number;
     name: string;
     slug: string;

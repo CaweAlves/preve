@@ -9,9 +9,10 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import tagRoutes from '@/routes/tags';
 import { type BreadcrumbItem } from '@/types';
+import type { ITag } from '@/types/models/tag';
 
 defineProps<{
-  tags: Tag[];
+  tags: ITag[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [

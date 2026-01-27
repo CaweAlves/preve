@@ -66,6 +66,7 @@ const iconMap: Record<string, Component> = {
  * @returns Vue Component
  */
 export const getIconComponent = (iconName: string | null): Component => {
+    if (!iconName) return House;
     return iconMap[iconName] || House;
 };
 

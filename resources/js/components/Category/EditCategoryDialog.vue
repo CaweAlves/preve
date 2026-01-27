@@ -18,12 +18,12 @@ import { availableColors, getColorClass } from '@/lib/category-colors';
 import { availableIcons, getIconComponent } from '@/lib/category-icons';
 import { cn } from '@/lib/utils';
 import { update } from '@/routes/categories';
-import { Category } from '@/types/models/category';
+import { ICategory } from '@/types/models/category';
 
 const open = defineModel<boolean>('open', { required: true });
 
 const props = defineProps<{
-  category: Category;
+  category: ICategory;
 }>();
 
 const form = useForm({
