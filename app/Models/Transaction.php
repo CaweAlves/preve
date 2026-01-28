@@ -25,9 +25,9 @@ class Transaction extends Model
     ];
 
     protected $casts = [
-        'uuid' => 'string',
+        'uuid'             => 'string',
         'transaction_date' => 'datetime',
-        'type' => TransactionType::class,
+        'type'             => TransactionType::class,
     ];
 
     public function user(): BelongsTo

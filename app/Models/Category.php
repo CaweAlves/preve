@@ -25,9 +25,9 @@ class Category extends Model
     ];
 
     protected $casts = [
-        'type' => TransactionType::class,
+        'type'  => TransactionType::class,
         'color' => CategoryColor::class,
-        'icon' => CategoryIcon::class,
+        'icon'  => CategoryIcon::class,
     ];
 
     public function transactions(): HasMany

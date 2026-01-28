@@ -22,11 +22,11 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'in:income,expense'],
+            'name'        => ['required', 'string', 'max:255'],
+            'type'        => ['required', 'in:income,expense'],
             'description' => ['nullable', 'string'],
-            'color' => ['string', 'max:10'],
-            'icon' => ['string', 'max:255'],
+            'color'       => ['string', 'max:10'],
+            'icon'        => ['string', 'max:255'],
         ];
     }
 }

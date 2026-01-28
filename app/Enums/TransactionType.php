@@ -10,7 +10,7 @@ enum TransactionType: string
     public function label(): string
     {
         return match ($this) {
-            TransactionType::INCOME => 'Income',
+            TransactionType::INCOME  => 'Income',
             TransactionType::EXPENSE => 'Expense',
         };
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e617092b0c19e238478e82ca262a52d",
+    "content-hash": "044f2cd87c0b304b8916ae7f53899cce",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6630,6 +6630,146 @@
             "time": "2026-01-08T07:23:06+00:00"
         },
         {
+            "name": "captainhook/captainhook",
+            "version": "5.27.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/captainhook-git/captainhook.git",
+                "reference": "ed04a64bbeb0da94865a15e74e8d0c97dcc0b987"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/captainhook-git/captainhook/zipball/ed04a64bbeb0da94865a15e74e8d0c97dcc0b987",
+                "reference": "ed04a64bbeb0da94865a15e74e8d0c97dcc0b987",
+                "shasum": ""
+            },
+            "require": {
+                "captainhook/secrets": "^0.9.4",
+                "ext-json": "*",
+                "ext-spl": "*",
+                "ext-xml": "*",
+                "php": ">=8.0",
+                "sebastianfeldmann/camino": "^0.9.2",
+                "sebastianfeldmann/cli": "^3.3",
+                "sebastianfeldmann/git": "^3.16.0",
+                "symfony/console": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
+                "symfony/filesystem": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
+                "symfony/process": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
+            },
+            "replace": {
+                "sebastianfeldmann/captainhook": "*"
+            },
+            "require-dev": {
+                "composer/composer": "~1 || ^2.0",
+                "mikey179/vfsstream": "~1"
+            },
+            "bin": [
+                "bin/captainhook"
+            ],
+            "type": "library",
+            "extra": {
+                "captainhook": {
+                    "config": "captainhook.json"
+                },
+                "branch-alias": {
+                    "dev-main": "6.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CaptainHook\\App\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Feldmann",
+                    "email": "sf@sebastian-feldmann.info"
+                }
+            ],
+            "description": "PHP git hook manager",
+            "homepage": "https://php.captainhook.info/",
+            "keywords": [
+                "commit-msg",
+                "git",
+                "hooks",
+                "post-merge",
+                "pre-commit",
+                "pre-push",
+                "prepare-commit-msg"
+            ],
+            "support": {
+                "issues": "https://github.com/captainhook-git/captainhook/issues",
+                "source": "https://github.com/captainhook-git/captainhook/tree/5.27.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/sebastianfeldmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-01-26T21:55:28+00:00"
+        },
+        {
+            "name": "captainhook/secrets",
+            "version": "0.9.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/captainhook-git/secrets.git",
+                "reference": "d62c97f75f81ac98e22f1c282482bd35fa82f631"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/captainhook-git/secrets/zipball/d62c97f75f81ac98e22f1c282482bd35fa82f631",
+                "reference": "d62c97f75f81ac98e22f1c282482bd35fa82f631",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CaptainHook\\Secrets\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Feldmann",
+                    "email": "sf@sebastian-feldmann.info"
+                }
+            ],
+            "description": "Utility classes to detect secrets",
+            "keywords": [
+                "commit-msg",
+                "keys",
+                "passwords",
+                "post-merge",
+                "prepare-commit-msg",
+                "secrets",
+                "tokens"
+            ],
+            "support": {
+                "issues": "https://github.com/captainhook-git/secrets/issues",
+                "source": "https://github.com/captainhook-git/secrets/tree/0.9.7"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/sebastianfeldmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-08T07:10:48+00:00"
+        },
+        {
             "name": "doctrine/deprecations",
             "version": "1.1.5",
             "source": {
@@ -6924,6 +7064,47 @@
             "time": "2025-04-30T06:54:44+00:00"
         },
         {
+            "name": "iamcal/sql-parser",
+            "version": "v0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iamcal/SQLParser.git",
+                "reference": "947083e2dca211a6f12fb1beb67a01e387de9b62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iamcal/SQLParser/zipball/947083e2dca211a6f12fb1beb67a01e387de9b62",
+                "reference": "947083e2dca211a6f12fb1beb67a01e387de9b62",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^1.0",
+                "phpunit/phpunit": "^5|^6|^7|^8|^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "iamcal\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cal Henderson",
+                    "email": "cal@iamcal.com"
+                }
+            ],
+            "description": "MySQL schema parser",
+            "support": {
+                "issues": "https://github.com/iamcal/SQLParser/issues",
+                "source": "https://github.com/iamcal/SQLParser/tree/v0.6"
+            },
+            "time": "2025-03-17T16:59:46+00:00"
+        },
+        {
             "name": "jean85/pretty-package-versions",
             "version": "2.1.1",
             "source": {
@@ -6982,6 +7163,96 @@
                 "source": "https://github.com/Jean85/pretty-package-versions/tree/2.1.1"
             },
             "time": "2025-03-19T14:43:43+00:00"
+        },
+        {
+            "name": "larastan/larastan",
+            "version": "v3.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/larastan/larastan.git",
+                "reference": "4b92d9627f779fd32bdc16f53f8ce88c50446ff5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/4b92d9627f779fd32bdc16f53f8ce88c50446ff5",
+                "reference": "4b92d9627f779fd32bdc16f53f8ce88c50446ff5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "iamcal/sql-parser": "^0.6.0",
+                "illuminate/console": "^11.44.2 || ^12.4.1",
+                "illuminate/container": "^11.44.2 || ^12.4.1",
+                "illuminate/contracts": "^11.44.2 || ^12.4.1",
+                "illuminate/database": "^11.44.2 || ^12.4.1",
+                "illuminate/http": "^11.44.2 || ^12.4.1",
+                "illuminate/pipeline": "^11.44.2 || ^12.4.1",
+                "illuminate/support": "^11.44.2 || ^12.4.1",
+                "php": "^8.2",
+                "phpstan/phpstan": "^2.1.32"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^13",
+                "laravel/framework": "^11.44.2 || ^12.7.2",
+                "mockery/mockery": "^1.6.12",
+                "nikic/php-parser": "^5.4",
+                "orchestra/canvas": "^v9.2.2 || ^10.0.1",
+                "orchestra/testbench-core": "^9.12.0 || ^10.1",
+                "phpstan/phpstan-deprecation-rules": "^2.0.1",
+                "phpunit/phpunit": "^10.5.35 || ^11.5.15"
+            },
+            "suggest": {
+                "orchestra/testbench": "Using Larastan for analysing a package needs Testbench",
+                "phpmyadmin/sql-parser": "Install to enable Larastan's optional phpMyAdmin-based SQL parser automatically"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Larastan\\Larastan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Can Vural",
+                    "email": "can9119@gmail.com"
+                }
+            ],
+            "description": "Larastan - Discover bugs in your code without running it. A phpstan/phpstan extension for Laravel",
+            "keywords": [
+                "PHPStan",
+                "code analyse",
+                "code analysis",
+                "larastan",
+                "laravel",
+                "package",
+                "php",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/larastan/larastan/issues",
+                "source": "https://github.com/larastan/larastan/tree/v3.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/canvural",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-01-21T09:15:17+00:00"
         },
         {
             "name": "laravel/pail",
@@ -7433,6 +7704,85 @@
                 }
             ],
             "time": "2025-11-20T02:55:25+00:00"
+        },
+        {
+            "name": "nunomaduro/pokio",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nunomaduro/pokio.git",
+                "reference": "961069aa5682328cd78cff9c81e2fb67a15b5b1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nunomaduro/pokio/zipball/961069aa5682328cd78cff9c81e2fb67a15b5b1b",
+                "reference": "961069aa5682328cd78cff9c81e2fb67a15b5b1b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.3.0"
+            },
+            "conflict": {
+                "symplify/easy-parallel": "<11.2.2"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.26.0",
+                "peckphp/peck": "^0.1.3",
+                "pestphp/pest": "^4.3.1",
+                "pestphp/pest-plugin-type-coverage": "^4.0.3",
+                "phpstan/phpstan": "^2.1.33",
+                "symfony/var-dumper": "^7.4.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Functions.php"
+                ],
+                "psr-4": {
+                    "Pokio\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "Pokio is a dead simple asynchronous API for PHP that just works",
+            "keywords": [
+                "asynchronous",
+                "library",
+                "php",
+                "pokio"
+            ],
+            "support": {
+                "issues": "https://github.com/nunomaduro/pokio/issues",
+                "source": "https://github.com/nunomaduro/pokio/tree/v0.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/enunomaduro",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/nunomaduro",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2026-01-04T16:32:40+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -7897,6 +8247,75 @@
             "time": "2025-12-08T00:13:17+00:00"
         },
         {
+            "name": "pestphp/pest-plugin-type-coverage",
+            "version": "v4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pestphp/pest-plugin-type-coverage.git",
+                "reference": "123bbf73d4b790373600132f503fd8d1453d40bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-type-coverage/zipball/123bbf73d4b790373600132f503fd8d1453d40bb",
+                "reference": "123bbf73d4b790373600132f503fd8d1453d40bb",
+                "shasum": ""
+            },
+            "require": {
+                "nunomaduro/pokio": "^0.1.1",
+                "pestphp/pest-plugin": "^4.0.0",
+                "php": "^8.3",
+                "phpstan/phpstan": "^1.12.24|^2.1.31",
+                "tomasvotruba/type-coverage": "^1.0.0|^2.0.2"
+            },
+            "require-dev": {
+                "pestphp/pest": "^4.1.3",
+                "pestphp/pest-dev-tools": "^4.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "pest": {
+                    "plugins": [
+                        "Pest\\TypeCoverage\\Plugin"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pest\\TypeCoverage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The Type Coverage plugin for Pest PHP.",
+            "keywords": [
+                "coverage",
+                "framework",
+                "pest",
+                "php",
+                "plugin",
+                "test",
+                "testing",
+                "type-coverage",
+                "unit"
+            ],
+            "support": {
+                "source": "https://github.com/pestphp/pest-plugin-type-coverage/tree/v4.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-11-02T23:10:59+00:00"
+        },
+        {
             "name": "phar-io/manifest",
             "version": "2.0.4",
             "source": {
@@ -8188,6 +8607,59 @@
                 "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.12.0"
             },
             "time": "2025-11-21T15:09:14+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "2.1.37",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/28cd424c5ea984128c95cfa7ea658808e8954e49",
+                "reference": "28cd424c5ea984128c95cfa7ea658808e8954e49",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
+            "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
+                "issues": "https://github.com/phpstan/phpstan/issues",
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-01-24T08:21:55+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -9526,6 +9998,182 @@
             "time": "2025-02-07T05:00:38+00:00"
         },
         {
+            "name": "sebastianfeldmann/camino",
+            "version": "0.9.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianfeldmann/camino.git",
+                "reference": "bf2e4c8b2a029e9eade43666132b61331e3e8184"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianfeldmann/camino/zipball/bf2e4c8b2a029e9eade43666132b61331e3e8184",
+                "reference": "bf2e4c8b2a029e9eade43666132b61331e3e8184",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SebastianFeldmann\\Camino\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Feldmann",
+                    "email": "sf@sebastian-feldmann.info"
+                }
+            ],
+            "description": "Path management the OO way",
+            "homepage": "https://github.com/sebastianfeldmann/camino",
+            "keywords": [
+                "file system",
+                "path"
+            ],
+            "support": {
+                "issues": "https://github.com/sebastianfeldmann/camino/issues",
+                "source": "https://github.com/sebastianfeldmann/camino/tree/0.9.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianfeldmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-03T13:15:10+00:00"
+        },
+        {
+            "name": "sebastianfeldmann/cli",
+            "version": "3.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianfeldmann/cli.git",
+                "reference": "6fa122afd528dae7d7ec988a604aa6c600f5d9b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianfeldmann/cli/zipball/6fa122afd528dae7d7ec988a604aa6c600f5d9b5",
+                "reference": "6fa122afd528dae7d7ec988a604aa6c600f5d9b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "symfony/process": "^4.3 | ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SebastianFeldmann\\Cli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Feldmann",
+                    "email": "sf@sebastian-feldmann.info"
+                }
+            ],
+            "description": "PHP cli helper classes",
+            "homepage": "https://github.com/sebastianfeldmann/cli",
+            "keywords": [
+                "cli"
+            ],
+            "support": {
+                "issues": "https://github.com/sebastianfeldmann/cli/issues",
+                "source": "https://github.com/sebastianfeldmann/cli/tree/3.4.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianfeldmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-11-26T10:19:01+00:00"
+        },
+        {
+            "name": "sebastianfeldmann/git",
+            "version": "3.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianfeldmann/git.git",
+                "reference": "40a5cc043f0957228767f639e370ec92590e940f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianfeldmann/git/zipball/40a5cc043f0957228767f639e370ec92590e940f",
+                "reference": "40a5cc043f0957228767f639e370ec92590e940f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "php": ">=8.0",
+                "sebastianfeldmann/cli": "^3.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SebastianFeldmann\\Git\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Feldmann",
+                    "email": "sf@sebastian-feldmann.info"
+                }
+            ],
+            "description": "PHP git wrapper",
+            "homepage": "https://github.com/sebastianfeldmann/git",
+            "keywords": [
+                "git"
+            ],
+            "support": {
+                "issues": "https://github.com/sebastianfeldmann/git/issues",
+                "source": "https://github.com/sebastianfeldmann/git/tree/3.16.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianfeldmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-01-26T20:59:18+00:00"
+        },
+        {
             "name": "staabm/side-effects-detector",
             "version": "1.0.5",
             "source": {
@@ -9576,6 +10224,76 @@
                 }
             ],
             "time": "2024-10-20T05:08:20+00:00"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v8.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "d937d400b980523dc9ee946bb69972b5e619058d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/d937d400b980523dc9ee946bb69972b5e619058d",
+                "reference": "d937d400b980523dc9ee946bb69972b5e619058d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.4",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.8"
+            },
+            "require-dev": {
+                "symfony/process": "^7.4|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides basic utilities for the filesystem",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/filesystem/tree/v8.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-12-01T09:13:36+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -9761,6 +10479,63 @@
                 }
             ],
             "time": "2025-12-08T11:19:18+00:00"
+        },
+        {
+            "name": "tomasvotruba/type-coverage",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TomasVotruba/type-coverage.git",
+                "reference": "468354b3964120806a69890cbeb3fcf005876391"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TomasVotruba/type-coverage/zipball/468354b3964120806a69890cbeb3fcf005876391",
+                "reference": "468354b3964120806a69890cbeb3fcf005876391",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^3.2 || ^4.0",
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "config/extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomasVotruba\\TypeCoverage\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Measure type coverage of your project",
+            "keywords": [
+                "phpstan-extension",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/TomasVotruba/type-coverage/issues",
+                "source": "https://github.com/TomasVotruba/type-coverage/tree/2.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-12-05T16:38:02+00:00"
         },
         {
             "name": "webmozart/assert",

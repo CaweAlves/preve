@@ -19,14 +19,14 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->uuid(),
-            'user_id' => User::factory(),
-            'category_id' => Category::factory(),
-            'tag_id' => Tag::factory(),
-            'amount' => $this->faker->randomFloat(2, 10, 200),
-            'type' => $this->faker->randomElement(TransactionType::cases())->value,
-            'description' => $this->faker->sentence(),
-            'notes' => $this->faker->optional()->paragraph(),
+            'id'               => $this->faker->uuid(),
+            'user_id'          => User::factory(),
+            'category_id'      => Category::factory(),
+            'tag_id'           => Tag::factory(),
+            'amount'           => $this->faker->randomFloat(2, 10, 200),
+            'type'             => $this->faker->randomElement(TransactionType::cases())->value,
+            'description'      => $this->faker->sentence(),
+            'notes'            => $this->faker->optional()->paragraph(),
             'transaction_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }

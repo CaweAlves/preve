@@ -26,12 +26,12 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:categories,slug,NULL,id,user_id,' . $this->user()->id],
-            'type' => ['required', 'in:income,expense'],
+            'name'        => ['required', 'string', 'max:255'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:categories,slug,NULL,id,user_id,' . $this->user()->id],
+            'type'        => ['required', 'in:income,expense'],
             'description' => ['nullable', 'string'],
-            'color' => ['string', 'max:10'],
-            'icon' => ['string', 'max:255'],
+            'color'       => ['string', 'max:10'],
+            'icon'        => ['string', 'max:255'],
         ];
     }
 

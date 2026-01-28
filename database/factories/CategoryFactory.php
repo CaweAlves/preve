@@ -24,33 +24,33 @@ class CategoryFactory extends Factory
             // EXPENSE CATEGORIES (5)
             // ======================
             [
-                'name' => 'Housing',
-                'type' => TransactionType::EXPENSE,
-                'icon' => CategoryIcon::HOUSE,
+                'name'  => 'Housing',
+                'type'  => TransactionType::EXPENSE,
+                'icon'  => CategoryIcon::HOUSE,
                 'color' => CategoryColor::BLUE,
             ],
             [
-                'name' => 'Groceries',
-                'type' => TransactionType::EXPENSE,
-                'icon' => CategoryIcon::SHOPPING_CART,
+                'name'  => 'Groceries',
+                'type'  => TransactionType::EXPENSE,
+                'icon'  => CategoryIcon::SHOPPING_CART,
                 'color' => CategoryColor::GREEN,
             ],
             [
-                'name' => 'Transportation',
-                'type' => TransactionType::EXPENSE,
-                'icon' => CategoryIcon::CAR,
+                'name'  => 'Transportation',
+                'type'  => TransactionType::EXPENSE,
+                'icon'  => CategoryIcon::CAR,
                 'color' => CategoryColor::ORANGE,
             ],
             [
-                'name' => 'Food & Dining',
-                'type' => TransactionType::EXPENSE,
-                'icon' => CategoryIcon::UTENSILS,
+                'name'  => 'Food & Dining',
+                'type'  => TransactionType::EXPENSE,
+                'icon'  => CategoryIcon::UTENSILS,
                 'color' => CategoryColor::PURPLE,
             ],
             [
-                'name' => 'Entertainment',
-                'type' => TransactionType::EXPENSE,
-                'icon' => CategoryIcon::GAMEPAD_2,
+                'name'  => 'Entertainment',
+                'type'  => TransactionType::EXPENSE,
+                'icon'  => CategoryIcon::GAMEPAD_2,
                 'color' => CategoryColor::YELLOW,
             ],
 
@@ -58,21 +58,21 @@ class CategoryFactory extends Factory
             // INCOME CATEGORIES (3)
             // ======================
             [
-                'name' => 'Salary',
-                'type' => TransactionType::INCOME,
-                'icon' => CategoryIcon::BRIEFCASE,
+                'name'  => 'Salary',
+                'type'  => TransactionType::INCOME,
+                'icon'  => CategoryIcon::BRIEFCASE,
                 'color' => CategoryColor::GREEN,
             ],
             [
-                'name' => 'Freelance',
-                'type' => TransactionType::INCOME,
-                'icon' => CategoryIcon::LAPTOP,
+                'name'  => 'Freelance',
+                'type'  => TransactionType::INCOME,
+                'icon'  => CategoryIcon::LAPTOP,
                 'color' => CategoryColor::BLUE,
             ],
             [
-                'name' => 'Investments',
-                'type' => TransactionType::INCOME,
-                'icon' => CategoryIcon::SHOPPING_BAG,
+                'name'  => 'Investments',
+                'type'  => TransactionType::INCOME,
+                'icon'  => CategoryIcon::SHOPPING_BAG,
                 'color' => CategoryColor::PURPLE,
             ],
         ];
@@ -80,13 +80,13 @@ class CategoryFactory extends Factory
         $category = $this->faker->randomElement($categories);
 
         return [
-            'user_id' => User::factory(),
-            'name' => $category['name'],
-            'slug' => Str::slug($category['name']),
+            'user_id'     => User::factory(),
+            'name'        => $category['name'],
+            'slug'        => Str::slug($category['name']),
             'description' => $this->faker->optional()->sentence(),
-            'type' => $category['type']->value,
-            'color' => $category['color']->value,
-            'icon' => $category['icon']->value,
+            'type'        => $category['type']->value,
+            'color'       => $category['color']->value,
+            'icon'        => $category['icon']->value,
         ];
     }
 }

@@ -18,9 +18,9 @@ class TagFactory extends Factory
         $name = $this->faker->word();
 
         return [
-            'user_id' => User::factory(),
-            'name' => $name,
-            'slug' => \Str::slug($name),
+            'user_id'     => User::factory(),
+            'name'        => $name,
+            'slug'        => \Str::slug($name),
             'description' => $this->faker->optional()->sentence(),
         ];
     }

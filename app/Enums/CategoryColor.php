@@ -14,9 +14,9 @@ enum CategoryColor: string
     public function label(): string
     {
         return match ($this) {
-            self::RED => 'red',
-            self::BLUE => 'blue',
-            self::GREEN => 'green',
+            self::RED    => 'red',
+            self::BLUE   => 'blue',
+            self::GREEN  => 'green',
             self::YELLOW => 'yellow',
             self::ORANGE => 'orange',
             self::PURPLE => 'purple',
