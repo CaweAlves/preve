@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import categories from '@/routes/categories';
+import recurring from '@/routes/recurring';
 import tags from '@/routes/tags';
 import transactions from '@/routes/transactions';
 import { type NavItem } from '@/types';
@@ -33,7 +34,7 @@ const mainNavItems: NavItem[] = [
   },
   {
     title: 'Recurring',
-    href: '#',
+    href: recurring.index(),
     icon: RefreshCw,
   },
   {

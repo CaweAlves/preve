@@ -1,22 +1,22 @@
 import { ICategory } from '@/types/models/category';
-import { IRecurringTransaction } from '@/types/models/recurring-transaction';
 import { ITag } from '@/types/models/tag';
+import type { TransactionType } from '@/types/models/transaction';
 
-export type TransactionType = 'income' | 'expense';
+export type FrequencyType = 'monthly' | 'yearly';
 
-export interface ITransaction {
+export interface IRecurringTransaction {
     id?: string;
-    recurring_transaction_id?: number | null;
-    recurring_transaction?: IRecurringTransaction | null;
     category_id: number;
     category?: ICategory;
     tag_id: number | null;
     tag?: ITag | null;
     amount: number;
+    frequency: FrequencyType;
     type: TransactionType;
     description: string;
-    notes: string | null;
-    transaction_date: string;
+    day_of_month: number;
+    start_date: string;
+    end_date?: string | null;
     created_at?: string;
     updated_at?: string;
 }
