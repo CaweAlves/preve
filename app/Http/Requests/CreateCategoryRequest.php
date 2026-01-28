@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use App\Http\Requests\Concerns\GeneratesUniqueSlug;
 use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCategoryRequest extends FormRequest
+final class CreateCategoryRequest extends FormRequest
 {
     use GeneratesUniqueSlug;
 
@@ -26,12 +28,12 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:categories,slug,NULL,id,user_id,' . $this->user()->id],
-            'type' => ['required', 'in:income,expense'],
+            'name'        => ['required', 'string', 'max:255'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:categories,slug,NULL,id,user_id,' . $this->user()->id],
+            'type'        => ['required', 'in:income,expense'],
             'description' => ['nullable', 'string'],
-            'color' => ['string', 'max:10'],
-            'icon' => ['string', 'max:255'],
+            'color'       => ['string', 'max:10'],
+            'icon'        => ['string', 'max:255'],
         ];
     }
 

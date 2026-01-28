@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TagController;
@@ -17,4 +19,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('transactions', TransactionController::class)->except('create', 'edit');
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';

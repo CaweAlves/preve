@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum TransactionType: string
@@ -10,7 +12,7 @@ enum TransactionType: string
     public function label(): string
     {
         return match ($this) {
-            TransactionType::INCOME => 'Income',
+            TransactionType::INCOME  => 'Income',
             TransactionType::EXPENSE => 'Expense',
         };
     }

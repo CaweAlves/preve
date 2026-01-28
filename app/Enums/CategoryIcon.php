@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum CategoryIcon: string
@@ -23,21 +25,21 @@ enum CategoryIcon: string
     public function label(): string
     {
         return match ($this) {
-            self::HOUSE => 'House',
+            self::HOUSE         => 'House',
             self::SHOPPING_CART => 'Shopping Cart',
-            self::CAR => 'Car',
-            self::HEART => 'Heart',
-            self::COFFEE => 'Coffee',
-            self::UTENSILS => 'Utensils',
-            self::PLANE => 'Plane',
-            self::BRIEFCASE => 'Briefcase',
-            self::GAMEPAD_2 => 'Game Controller',
-            self::MUSIC => 'Music',
-            self::BOOK => 'Book',
-            self::DUMBBELL => 'Fitness',
-            self::SHOPPING_BAG => 'Shopping Bag',
-            self::FILM => 'Film',
-            self::LAPTOP => 'Laptop',
+            self::CAR           => 'Car',
+            self::HEART         => 'Heart',
+            self::COFFEE        => 'Coffee',
+            self::UTENSILS      => 'Utensils',
+            self::PLANE         => 'Plane',
+            self::BRIEFCASE     => 'Briefcase',
+            self::GAMEPAD_2     => 'Game Controller',
+            self::MUSIC         => 'Music',
+            self::BOOK          => 'Book',
+            self::DUMBBELL      => 'Fitness',
+            self::SHOPPING_BAG  => 'Shopping Bag',
+            self::FILM          => 'Film',
+            self::LAPTOP        => 'Laptop',
         };
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use App\Http\Requests\Concerns\GeneratesUniqueSlug;
 use App\Models\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTagRequest extends FormRequest
+final class CreateTagRequest extends FormRequest
 {
     use GeneratesUniqueSlug;
 
@@ -26,8 +28,8 @@ class CreateTagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:tags,slug,NULL,id,user_id,' . $this->user()->id],
+            'name'        => ['required', 'string', 'max:255'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:tags,slug,NULL,id,user_id,' . $this->user()->id],
             'description' => ['nullable', 'string'],
         ];
     }
