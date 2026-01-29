@@ -31,7 +31,6 @@ const props = defineProps<{
 
 const form = useForm({
   name: props.category.name,
-  slug: props.category.slug,
   type: props.category.type,
   description: props.category.description ?? '',
   icon: props.category.icon,
@@ -75,7 +74,7 @@ const updateCategory = () => {
             <InputError :message="form.errors.type" />
           </div>
 
-          <div class="grid gap-3">
+          <div class="col-span-2 grid gap-3">
             <Label for="name"> Name </Label>
             <Input
               id="name"
@@ -84,17 +83,6 @@ const updateCategory = () => {
               v-model="form.name"
             />
             <InputError :message="form.errors.name" />
-          </div>
-
-          <div class="grid gap-3">
-            <Label for="slug"> Slug </Label>
-            <Input
-              id="slug"
-              name="slug"
-              placeholder="category-slug"
-              v-model="form.slug"
-            />
-            <InputError :message="form.errors.slug" />
           </div>
 
           <div class="col-span-2 grid gap-3">

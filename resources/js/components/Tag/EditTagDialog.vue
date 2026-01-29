@@ -25,7 +25,6 @@ const props = defineProps<{
 
 const form = useForm({
   name: props.tag.name,
-  slug: props.tag.slug,
   description: props.tag.description ?? '',
 });
 
@@ -49,7 +48,7 @@ const updateTag = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4">
           <div class="grid gap-3">
             <Label for="name"> Name </Label>
             <Input
@@ -62,22 +61,11 @@ const updateTag = () => {
           </div>
 
           <div class="grid gap-3">
-            <Label for="slug"> Slug </Label>
-            <Input
-              id="slug"
-              name="slug"
-              placeholder="tag-slug"
-              v-model="form.slug"
-            />
-            <InputError :message="form.errors.slug" />
-          </div>
-
-          <div class="col-span-2 grid gap-3">
             <Label for="description"> Description </Label>
             <Input
               id="description"
               name="description"
-              placeholder="This is a category for..."
+              placeholder="This is a tag for..."
               v-model="form.description"
             />
             <InputError :message="form.errors.description" />

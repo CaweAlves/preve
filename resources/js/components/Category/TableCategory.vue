@@ -9,7 +9,6 @@ import EditButton from '@/components/ui/button/EditButton.vue';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -17,9 +16,8 @@ import {
 } from '@/components/ui/table';
 import { getColorClass } from '@/lib/category-colors';
 import { getIconComponent } from '@/lib/category-icons';
-import { ICategory } from '@/types/models/category';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { ICategory } from '@/types/models/category';
 
 const showDeleteDialog = ref(false);
 const showEditDialog = ref(false);
@@ -47,7 +45,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-1.5">
       <i
         :class="
           cn(
@@ -57,7 +55,9 @@ withDefaults(defineProps<Props>(), {
         "
       />
       {{ type === 'income' ? 'Income' : 'Expense' }}
-      {{ categories.length }}
+      <span class="text-xs text-muted-foreground -mt-1">
+        [{{ categories.length }}]
+      </span>
     </div>
     <Table>
       <TableHeader>
