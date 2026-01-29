@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { InertiaForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
 import { ArrowDownLeft, ArrowUpRight } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
@@ -33,7 +33,9 @@ const props = defineProps<Props>();
 const displayAmount = defineModel<string>('displayAmount', { required: true });
 
 const filteredCategories = computed(() => {
-  return props.categories.filter(category => category.type === props.form.type);
+  return props.categories.filter(
+    (category) => category.type === props.form.type,
+  );
 });
 </script>
 
@@ -96,7 +98,7 @@ const filteredCategories = computed(() => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Category</SelectLabel>
+            <SelectLabel> Category</SelectLabel>
             <SelectItem
               v-for="category in filteredCategories"
               :value="category.id"
@@ -131,9 +133,11 @@ const filteredCategories = computed(() => {
   </div>
 
   <!-- Recurrence Settings -->
-  <hr class="mt-2">
+  <hr class="mt-2" />
   <div class="grid gap-3">
-    <Label class="text-sm font-semibold text-muted-foreground"> Recurrence Settings </Label>
+    <Label class="text-sm font-semibold text-muted-foreground">
+      Recurrence Settings
+    </Label>
 
     <div class="grid grid-cols-2 gap-4">
       <div class="grid gap-3">
@@ -181,7 +185,9 @@ const filteredCategories = computed(() => {
       </div>
 
       <div class="grid gap-3">
-        <Label for="end_date" class="text-muted-foreground"> End Date (Optional) </Label>
+        <Label for="end_date" class="text-muted-foreground">
+          End Date (Optional)
+        </Label>
         <Input
           id="end_date"
           type="date"

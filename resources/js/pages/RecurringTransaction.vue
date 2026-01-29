@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 import Heading from '@/components/Heading.vue';
+import ContainerRecurrings from '@/components/Recurring/ContainerRecurrings.vue';
 import CreateRecurringDialog from '@/components/Recurring/CreateRecurringDialog.vue';
 import RecurringCards from '@/components/Recurring/RecurringCards.vue';
 import { Button } from '@/components/ui/button';
@@ -55,6 +56,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 
       <!-- RECURRING CARDS -->
       <RecurringCards />
+
+      <!-- CONTAINER -->
+      <ContainerRecurrings
+        :recurringTransactions="recurringTransactions"
+        :categories="categories"
+        :tags="tags"
+      />
 
       <!-- CREATE -->
       <CreateRecurringDialog
