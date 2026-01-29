@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\TransactionType;
 use App\Http\Requests\RecurringTransactionRequest;
 use App\Models\RecurringTransaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -21,16 +22,23 @@ final class RecurringTransactionController extends Controller
      */
     public function index(): Response
     {
-        $recurringTransactions = Auth::user()
+        $recurring = Auth::user()
             ->recurringTransactions()
             ->with(['transactions', 'category', 'tag'])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('day_of_month', 'asc')
             ->get();
+
+        [$expenseRecurring, $incomeRecurring] = $recurring->partition(function (RecurringTransaction $recurringTransaction) {
+            return $recurringTransaction->type === TransactionType::EXPENSE;
+        });
+
+        $expenseRecurring = $expenseRecurring->values();
+        $incomeRecurring = $incomeRecurring->values();
 
         $categories = Auth::user()->categories()->get();
         $tags = Auth::user()->tags()->get();
 
-        return Inertia::render('RecurringTransaction', compact('recurringTransactions', 'categories', 'tags'));
+        return Inertia::render('RecurringTransaction', compact('expenseRecurring', 'incomeRecurring', 'categories', 'tags'));
     }
 
     /**

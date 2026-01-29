@@ -15,7 +15,8 @@ import { type IRecurringTransaction } from '@/types/models/recurring-transaction
 import { type ITag } from '@/types/models/tag';
 
 interface Props {
-  recurringTransactions: IRecurringTransaction[];
+  expenseRecurring: IRecurringTransaction[];
+  incomeRecurring: IRecurringTransaction[];
   categories: ICategory[];
   tags: ITag[];
 }
@@ -58,11 +59,20 @@ const breadcrumbs: BreadcrumbItem[] = [
       <RecurringCards />
 
       <!-- CONTAINER -->
-      <ContainerRecurrings
-        :recurringTransactions="recurringTransactions"
-        :categories="categories"
-        :tags="tags"
-      />
+      <div class="space-y-4 mt-10">
+        <ContainerRecurrings
+          :tags="tags"
+          :categories="categories"
+          :recurringTransactions="incomeRecurring"
+          type="income"
+        />
+
+        <ContainerRecurrings
+          :tags="tags"
+          :categories="categories"
+          :recurringTransactions="expenseRecurring"
+        />
+      </div>
 
       <!-- CREATE -->
       <CreateRecurringDialog

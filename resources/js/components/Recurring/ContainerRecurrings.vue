@@ -4,15 +4,19 @@ import { type ICategory } from '@/types/models/category';
 import { IRecurringTransaction } from '@/types/models/recurring-transaction';
 import { type ITag } from '@/types/models/tag';
 
-defineProps<{
+interface Props {
   recurringTransactions: IRecurringTransaction[];
   categories: ICategory[];
   tags: ITag[];
-}>();
+  type?: 'income' | 'expense';
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <div class="space-y-2">
+    {{ type === 'income' ? 'Income' : 'Expense' }}
     <CardRecurring
       :recurringTransaction="recurringTransaction"
       :categories="categories"
