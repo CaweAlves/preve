@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 final class TransactionRequest extends FormRequest
 {
@@ -31,6 +33,29 @@ final class TransactionRequest extends FormRequest
             'description'      => ['required', 'string', 'min:3'],
             'notes'            => ['nullable', 'string'],
             'transaction_date' => ['required', 'date'],
+        ];
+    }
+
+    /**
+     * Configure the validator instance.
+     */
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                if ($validator->errors()->isNotEmpty()) {
+                    return;
+                }
+
+                $category = Category::find($this->category_id);
+
+                if ($category && $category->type->value !== $this->type) {
+                    $validator->errors()->add(
+                        'category_id',
+                        "The selected category must be of type {$this->type}."
+                    );
+                }
+            },
         ];
     }
 }
