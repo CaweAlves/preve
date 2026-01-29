@@ -1,0 +1,75 @@
+import { capitalizeFirstLetter } from './utils';
+
+import type { FrequencyType } from '@/types/models/recurring-transaction';
+
+/**
+ * Formats the frequency text with the day of month
+ * @param frequency - The frequency type (monthly or yearly)
+ * @param dayOfMonth - The day of the month (1-31)
+ * @returns Formatted frequency text (e.g., "Monthly on day 15")
+ */
+export function formatFrequency(
+  frequency: FrequencyType,
+  dayOfMonth: number,
+): string {
+  const freq = capitalizeFirstLetter(frequency);
+  return `${freq} on day ${dayOfMonth}`;
+}
+
+/**
+ * Calculates the next occurrence date for a recurring transaction
+ * @param frequency - The frequency type (monthly or yearly)
+ * @param dayOfMonth - The day of the month when it recurs
+ * @returns Formatted next occurrence date in pt-BR format
+ */
+export function calculateNextOccurrence(
+  frequency: FrequencyType,
+  dayOfMonth: number,
+): string {
+  const today = new Date();
+  let nextDate = new Date(today.getFullYear(), today.getMonth(), dayOfMonth);
+
+  if (nextDate < today) {
+    if (frequency === 'monthly') {
+      nextDate = new Date(today.getFullYear(), today.getMonth() + 1, dayOfMonth);
+    } else {
+      nextDate = new Date(today.getFullYear() + 1, today.getMonth(), dayOfMonth);
+    }
+  }
+
+  return nextDate.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
+/**
+ * Formats the active period of a recurring transaction
+ * @param startDate - The start date string
+ * @param endDate - The optional end date string
+ * @returns Formatted period text (e.g., "15 de jan de 2026 - 15 de dez de 2026" or "Since 15 de jan de 2026")
+ */
+export function formatActivePeriod(
+  startDate: string,
+  endDate?: string | null,
+): string {
+  const start = new Date(startDate);
+  const formattedStart = start.toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+
+  if (endDate) {
+    const end = new Date(endDate);
+    const formattedEnd = end.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+    return `${formattedStart} - ${formattedEnd}`;
+  }
+
+  return `Since ${formattedStart}`;
+}

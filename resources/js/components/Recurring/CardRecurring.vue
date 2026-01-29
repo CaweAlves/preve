@@ -11,7 +11,12 @@ import EditButton from '@/components/ui/button/EditButton.vue';
 import { Card } from '@/components/ui/card';
 import { getIconComponent } from '@/lib/category-icons';
 import { formatCentsToDisplay } from '@/lib/currency';
-import { capitalizeFirstLetter, cn } from '@/lib/utils';
+import {
+  calculateNextOccurrence,
+  formatActivePeriod,
+  formatFrequency,
+} from '@/lib/recurring';
+import { cn } from '@/lib/utils';
 import { type ICategory } from '@/types/models/category';
 import { IRecurringTransaction } from '@/types/models/recurring-transaction';
 import { type ITag } from '@/types/models/tag';
@@ -41,53 +46,26 @@ const amountClass = computed(() =>
   ),
 );
 
-const frequencyText = computed(() => {
-  const freq = capitalizeFirstLetter(props.recurringTransaction.frequency);
-  const day = props.recurringTransaction.day_of_month;
-  return `${freq} on day ${day}`;
-});
+const frequencyText = computed(() =>
+  formatFrequency(
+    props.recurringTransaction.frequency,
+    props.recurringTransaction.day_of_month,
+  ),
+);
 
-const nextOccurrence = computed(() => {
-  const today = new Date();
-  const dayOfMonth = props.recurringTransaction.day_of_month;
+const nextOccurrence = computed(() =>
+  calculateNextOccurrence(
+    props.recurringTransaction.frequency,
+    props.recurringTransaction.day_of_month,
+  ),
+);
 
-  let nextDate = new Date(today.getFullYear(), today.getMonth(), dayOfMonth);
-
-  if (nextDate < today) {
-    if (props.recurringTransaction.frequency === 'monthly') {
-      nextDate = new Date(today.getFullYear(), today.getMonth() + 1, dayOfMonth);
-    } else {
-      nextDate = new Date(today.getFullYear() + 1, today.getMonth(), dayOfMonth);
-    }
-  }
-
-  return nextDate.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  });
-});
-
-const activePeriod = computed(() => {
-  const startDate = new Date(props.recurringTransaction.start_date);
-  const start = startDate.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  });
-
-  if (props.recurringTransaction.end_date) {
-    const endDate = new Date(props.recurringTransaction.end_date);
-    const end = endDate.toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    });
-    return `${start} - ${end}`;
-  }
-
-  return `Since ${start}`;
-});
+const activePeriod = computed(() =>
+  formatActivePeriod(
+    props.recurringTransaction.start_date,
+    props.recurringTransaction.end_date,
+  ),
+);
 
 const toggleExpand = () => {
   isExpanded.value = !isExpanded.value;
