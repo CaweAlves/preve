@@ -20,7 +20,7 @@ export function formatFrequency(
  * Calculates the next occurrence date for a recurring transaction
  * @param frequency - The frequency type (monthly or yearly)
  * @param dayOfMonth - The day of the month when it recurs
- * @returns Formatted next occurrence date in pt-BR format
+ * @returns Formatted next occurrence date in en format
  */
 export function calculateNextOccurrence(
   frequency: FrequencyType,
@@ -37,7 +37,7 @@ export function calculateNextOccurrence(
     }
   }
 
-  return nextDate.toLocaleDateString('pt-BR', {
+  return nextDate.toLocaleDateString('en', {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
@@ -55,7 +55,7 @@ export function formatActivePeriod(
   endDate?: string | null,
 ): string {
   const start = new Date(startDate);
-  const formattedStart = start.toLocaleDateString('pt-BR', {
+  const formattedStart = start.toLocaleDateString('en', {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
@@ -63,7 +63,7 @@ export function formatActivePeriod(
 
   if (endDate) {
     const end = new Date(endDate);
-    const formattedEnd = end.toLocaleDateString('pt-BR', {
+    const formattedEnd = end.toLocaleDateString('en', {
       day: '2-digit',
       month: 'short',
       year: 'numeric',
