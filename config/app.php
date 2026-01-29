@@ -30,6 +30,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'repository' => 'https://github.com/combizera/preve',
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

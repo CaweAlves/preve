@@ -25,7 +25,10 @@ final class RecurringTransactionController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return Inertia::render('RecurringTransaction', compact('recurringTransactions'));
+        $categories = Auth::user()->categories()->get();
+        $tags = Auth::user()->tags()->get();
+
+        return Inertia::render('RecurringTransaction', compact('recurringTransactions', 'categories', 'tags'));
     }
 
     /**

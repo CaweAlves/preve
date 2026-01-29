@@ -15,10 +15,10 @@ import {
 } from '@/components/ui/dialog';
 import { TRANSACTION_TYPE } from '@/enums/transaction-type';
 import { extractNumbers, formatCentsToDisplay, parseToCents } from '@/lib/currency';
-import { store } from '@/routes/transactions';
+import { store } from '@/routes/recurring';
 import type { ICategory } from '@/types/models/category';
+import { IRecurringTransaction } from '@/types/models/recurring-transaction';
 import type { ITag } from '@/types/models/tag';
-import { ITransaction } from '@/types/models/transaction';
 
 const open = defineModel<boolean>('open', { required: true });
 
@@ -29,14 +29,14 @@ defineProps<{
 
 const rawAmount = ref('');
 
-const form = useForm<ITransaction>({
+const form = useForm<IRecurringTransaction>({
   category_id: 0,
   tag_id: null,
   amount: 0,
   type: TRANSACTION_TYPE.EXPENSE,
   description: '',
   notes: null,
-  transaction_date: new Date().toLocaleDateString("pt-BR"),
+  transaction_date: new Date().toISOString().split('T')[0],
 });
 
 const displayAmount = computed({
@@ -48,7 +48,7 @@ const displayAmount = computed({
   },
 });
 
-const createTransaction = () => {
+const createRecurring = () => {
   form.submit(store(), {
     onSuccess: () => {
       open.value = false;
@@ -64,9 +64,9 @@ const createTransaction = () => {
     <form>
       <DialogContent class="sm:max-w-[550px]">
         <DialogHeader>
-          <DialogTitle>Create Transaction</DialogTitle>
+          <DialogTitle>Create Recurring Transaction</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new transaction.
+            Fill in the details below to create a new recurring transaction.
           </DialogDescription>
         </DialogHeader>
 
@@ -83,10 +83,10 @@ const createTransaction = () => {
           </DialogClose>
           <Button
             type="button"
-            @click="createTransaction"
+            @click="createRecurring"
             :disabled="form.processing"
           >
-            Create Transaction
+            Create Recurring
           </Button>
         </DialogFooter>
       </DialogContent>

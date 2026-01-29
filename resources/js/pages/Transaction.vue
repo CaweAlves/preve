@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import { provide, ref } from 'vue';
+import { ref } from 'vue';
 
 import Heading from '@/components/Heading.vue';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
@@ -20,10 +20,6 @@ const props = defineProps<{
   categories: ICategory[];
   tags: ITag[];
 }>();
-
-// Provide categories and tags to all child components
-provide('categories', props.categories);
-provide('tags', props.tags);
 
 const showCreateDialog = ref(false);
 
@@ -65,6 +61,8 @@ const breadcrumbs: BreadcrumbItem[] = [
       <CreateTransactionDialog
         v-if="showCreateDialog"
         v-model:open="showCreateDialog"
+        :categories="categories"
+        :tags="tags"
       />
 
       <!-- PLACEHOLDER -->
