@@ -48,9 +48,10 @@ final class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Transaction $transaction): Response
     {
         // TODO: implement
+        return Inertia::render('Transaction');
     }
 
     /**
