@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class)->except('create', 'edit');
     Route::resource('tags', TagController::class)->except('create', 'edit');
     Route::resource('transactions', TransactionController::class)->except('create', 'edit');
+    Route::patch('recurring/{recurring}/toggle', [RecurringTransactionController::class, 'toggle'])->name('recurring.toggle');
     Route::resource('recurring', RecurringTransactionController::class)->except('create', 'edit');
 });
 
