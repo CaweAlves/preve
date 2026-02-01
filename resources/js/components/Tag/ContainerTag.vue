@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import EmptyState from '@/components/EmptyState.vue';
-import TableTag from '@/components/Tag/TableTag.vue';
+import { DataTable, DataTablePaginator } from '@/components/ui/data-table';
+import { columns } from '@/tables/tags';
 import type { ITag } from '@/types/models/tag';
 
 defineProps<{
@@ -17,6 +18,10 @@ defineProps<{
       :showButton="false"
     />
 
-    <TableTag :tags="tags" v-else />
+    <DataTable v-else :columns="columns" :data="tags">
+      <template #pagination="{ table }">
+        <DataTablePaginator :table="table" />
+      </template>
+    </DataTable>
   </div>
 </template>
