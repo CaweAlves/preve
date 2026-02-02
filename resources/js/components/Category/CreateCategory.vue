@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
-import { Plus } from 'lucide-vue-next';
 
 import InputError from '@/components/InputError.vue';
+import QuickCreateCard from '@/components/QuickCreateCard.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -39,12 +39,7 @@ const createCategory = () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 rounded-md bg-sidebar p-6">
-    <div class="flex items-center gap-2">
-      <Plus :size="18" class="text-muted-foreground" />
-      <p class="text-sm text-muted-foreground">New Category</p>
-    </div>
-
+  <QuickCreateCard title="New Category">
     <form
       class="flex w-full flex-wrap items-start gap-3"
       @submit.prevent="createCategory"
@@ -172,7 +167,7 @@ const createCategory = () => {
         </Button>
       </div>
     </form>
-  </div>
+  </QuickCreateCard>
 </template>
 
 <style scoped></style>
