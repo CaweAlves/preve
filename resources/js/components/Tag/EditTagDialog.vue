@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
+import { watch } from 'vue';
 
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -15,42 +16,63 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { update } from '@/routes/tags';
-import { ITag } from '@/types/models/tag';
+import { useTagStore } from '@/stores/tag.store';
 
-const open = defineModel<boolean>('open', { required: true });
-
-const props = defineProps<{
-  tag: ITag;
-}>();
+const tagStore = useTagStore();
 
 const form = useForm({
-  name: props.tag.name,
-  description: props.tag.description ?? '',
+  name: '',
+  description: '',
 });
 
-const updateTag = () => {
-  form.submit(update(props.tag.id), {
+watch(
+  () => tagStore.tag,
+  (newTag) => {
+    if (newTag) {
+      form.name = newTag.name;
+      form.description = newTag.description ?? '';
+      form.clearErrors();
+    } else {
+      form.reset();
+    }
+  },
+);
+
+function handleUpdateTag() {
+  if (!tagStore.tag) return;
+
+  form.submit(update(tagStore.tag.id), {
     onSuccess: () => {
-      open.value = false;
+      tagStore.closeEditModal();
     },
   });
-};
+}
+
+function handleOpenUpdate(open: boolean) {
+  if (!open) {
+    tagStore.closeEditModal();
+  }
+}
 </script>
 
 <template>
-  <Dialog v-model:open="open">
+  <Dialog
+    v-model:open="tagStore.showEditDialog"
+    @update:open="handleOpenUpdate"
+  >
     <form>
       <DialogContent class="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Edit Tag</DialogTitle>
           <DialogDescription>
-            Make changes to {{ tag?.name }}. Click save when you're done.
+            Make changes to {{ tagStore.tag?.name }}. Click save when you're
+            done.
           </DialogDescription>
         </DialogHeader>
 
         <div class="grid gap-4">
           <div class="grid gap-3">
-            <Label for="name"> Name </Label>
+            <Label for="name">Name</Label>
             <Input
               id="name"
               name="name"
@@ -61,7 +83,7 @@ const updateTag = () => {
           </div>
 
           <div class="grid gap-3">
-            <Label for="description"> Description </Label>
+            <Label for="description">Description</Label>
             <Input
               id="description"
               name="description"
@@ -74,9 +96,9 @@ const updateTag = () => {
 
         <DialogFooter>
           <DialogClose as-child>
-            <Button variant="outline"> Cancel </Button>
+            <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="button" @click="updateTag" :disabled="form.processing">
+          <Button @click="handleUpdateTag" :disabled="form.processing">
             Save changes
           </Button>
         </DialogFooter>

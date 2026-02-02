@@ -12,43 +12,38 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { destroy } from '@/routes/tags';
-import { ITag } from '@/types/models/tag';
+import { useTagStore } from '@/stores/tag.store';
 
-const open = defineModel<boolean>('open', { required: true });
-
-const props = defineProps<{
-  tag: ITag | null;
-}>();
+const tagStore = useTagStore()
 
 const form = useForm({});
 
-const deleteTag = () => {
-  const tag = props.tag;
-  if (!tag) return;
+function handleDeleteTag() {
+  if (!tagStore.tag) return;
 
-  form.submit(destroy(tag.id), {
+  form.submit(destroy(tagStore.tag.id), {
     onSuccess: () => {
-      open.value = false;
+      tagStore.closeDeleteModal()
     }
   });
 };
 </script>
 
 <template>
-  <AlertDialog v-model:open="open">
+  <AlertDialog v-model:open="tagStore.showDeleteDialog">
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
         <AlertDialogDescription>
           This action cannot be undone. This will permanently delete
-          the tag "{{ tag?.name }}".
+          the tag "{{ tagStore.tag?.name }}".
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
         <AlertDialogCancel>
           Cancel
         </AlertDialogCancel>
-        <AlertDialogAction @click="deleteTag" :disabled="form.processing">
+        <AlertDialogAction @click="handleDeleteTag" :disabled="form.processing">
           Confirm
         </AlertDialogAction>
       </AlertDialogFooter>
