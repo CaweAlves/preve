@@ -12,7 +12,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+  <div class="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2">
     <!-- TABLE - CRUD -->
     <div>
       <EmptyState

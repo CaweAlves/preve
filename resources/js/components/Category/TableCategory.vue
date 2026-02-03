@@ -45,19 +45,12 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <div>
-    <div class="flex items-center gap-1.5">
-      <i
-        :class="
-          cn(
-            'size-4 rounded',
-            type === 'expense' ? 'bg-destructive' : 'bg-positive',
-          )
-        "
-      />
-      {{ type === 'income' ? 'Income' : 'Expense' }}
-      <span class="text-xs text-muted-foreground -mt-1">
-        [{{ categories.length }}]
-      </span>
+    <div class="flex items-center gap-2 mb-2 px-2 w-full">
+      <i :class="cn('size-4 rounded', type === 'expense' ? 'bg-destructive' : 'bg-positive')" />
+      <p class="text-foreground">
+        {{ type === 'income' ? 'Income' : 'Expense' }}
+      </p>
+      <div class="h-px flex-1 bg-border ml-1"></div>
     </div>
     <Table>
       <TableHeader>
