@@ -58,7 +58,7 @@ const openDeleteDialog = (transaction: ITransaction) => {
     class="flex flex-row items-center justify-between gap-2 rounded-md bg-sidebar p-4"
   >
     <div class="flex items-center gap-4">
-      <Checkbox id="transaction" class="size-5" />
+      <Checkbox id="transaction" class="size-5 bg-background cursor-pointer" />
       <div class="space-y-1">
         <Label
           for="transaction"
@@ -76,7 +76,7 @@ const openDeleteDialog = (transaction: ITransaction) => {
       </div>
     </div>
 
-    <div>
+    <div class="flex items-center gap-2">
       <span :class="amountClass"> R$ {{ formattedAmount }} </span>
       <ActionGroup>
         <DuplicateButton @click="openEditDialog(transaction, 'duplicate')" />
