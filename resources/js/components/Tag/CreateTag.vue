@@ -22,34 +22,24 @@ const createTag = () => {
 
 <template>
   <QuickCreateCard title="New Tag">
-    <form class="flex w-full flex-wrap items-start gap-3" @submit.prevent="createTag">
-        <div class="flex flex-col gap-2 justify-start min-w-1/4">
-          <Label for="name">Name</Label>
-          <Input
-            id="name"
-            name="name"
-            placeholder="Name"
-            v-model="form.name"
-          />
-          <InputError :message="form.errors.name" />
-        </div>
-  
-        <div class="flex flex-col gap-2 flex-1 justify-start min-w-1/4">
-          <Label for="description">Description</Label>
-          <Input
-            id="description"
-            name="description"
-            placeholder="Describe your tag"
-            v-model="form.description"
-          />
-          <InputError :message="form.errors.description" />
-        </div>
-  
-        <div class="h-full flex items-start pt-5.5">
-          <Button type="submit" :disabled="form.processing" class="h-9">
-            Create
-          </Button>
-        </div>
-      </form>
+    <form class="w-full flex flex-col md:flex-row flex-wrap items-start gap-3" @submit.prevent="createTag">
+      <div class="flex flex-col gap-2 justify-start max-md:w-full md:min-w-1/4">
+        <Label for="name">Name</Label>
+        <Input id="name" name="name" placeholder="Name" v-model="form.name" />
+        <InputError :message="form.errors.name" />
+      </div>
+
+      <div class="flex flex-col gap-2 flex-1 justify-start max-md:w-full md:min-w-1/4">
+        <Label for="description">Description</Label>
+        <Input id="description" name="description" placeholder="Describe your tag" v-model="form.description" />
+        <InputError :message="form.errors.description" />
+      </div>
+
+      <div class="max-lg:w-full h-full flex items-start pt-2 lg:pt-5.5">
+        <Button type="submit" :disabled="form.processing" class="h-9 w-full lg:w-auto">
+          Create
+        </Button>
+      </div>
+    </form>
   </QuickCreateCard>
 </template>

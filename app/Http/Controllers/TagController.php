@@ -22,7 +22,9 @@ final class TagController extends Controller
      */
     public function index(): Response
     {
-        $tags = Auth::user()->tags()->get();
+        $perPage = request()->input('per_page', 10);
+
+        $tags = Auth::user()->tags()->paginate($perPage);
 
         return Inertia::render('Tag', compact('tags'));
     }
