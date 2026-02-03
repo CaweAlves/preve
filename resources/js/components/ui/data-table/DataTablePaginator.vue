@@ -1,23 +1,51 @@
 <script setup lang="ts" generic="TData">
 import Button from '@/components/ui/button/Button.vue';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { Table } from '@tanstack/vue-table';
+import { type IPaginate } from '@/types/models/paginated';
+import { router } from '@inertiajs/vue3';
 
 import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon } from 'lucide-vue-next';
 import { AcceptableValue } from 'reka-ui';
 import { computed } from 'vue';
 
 const props = defineProps<{
-  table: Table<TData>
+  pagination: IPaginate<TData>
 }>()
 
-const currentPage = computed(() => props.table.getState().pagination.pageIndex + 1)
-const totalPages = computed(() => props.table.getPageCount())
-const pageSize = computed(() => props.table.getState().pagination.pageSize)
+const currentPage = computed(() => props.pagination.current_page)
+const totalPages = computed(() => props.pagination.last_page)
+const pageSize = computed(() => props.pagination.per_page)
+
+const getQueryParams = (overrides: Record<string, any>) => {
+  const params = new URLSearchParams(window.location.search)
+
+  Object.entries(overrides).forEach(([key, value]) => {
+    if (value === null || value === undefined) {
+      params.delete(key);
+    } else {
+      params.set(key, String(value));
+    }
+  });
+
+  return Object.fromEntries(params.entries())
+}
+
+const navigate = (params: Record<string, any>) => {
+  router.get(window.location.pathname, getQueryParams(params), {
+    preserveState: true,
+    preserveScroll: true,
+  })
+}
 
 function handlePageSizeChange(value: AcceptableValue) {
-  props.table.setPageSize(Number(value))
-  props.table.setPageIndex(0)
+  navigate({
+    page: 1,
+    per_page: Number(value),
+  })
+}
+
+function handlePageChange(page: number) {
+  navigate({ page })
 }
 </script>
 
@@ -36,29 +64,46 @@ function handlePageSizeChange(value: AcceptableValue) {
             <SelectValue :placeholder="`${pageSize}`" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem v-for="pageSize in [10, 20, 30, 40, 50]" :key="pageSize" :value="`${pageSize}`">
-              {{ pageSize }}
+            <SelectItem v-for="size in [10, 20, 30, 40, 50]" :key="size" :value="`${size}`">
+              {{ size }}
             </SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div class="flex items-center space-x-2">
-        <Button variant="outline" class="hidden size-8 p-0 lg:flex" :disabled="!table.getCanPreviousPage()"
-          @click="table.setPageIndex(0)">
+        <Button
+          variant="outline"
+          class="hidden size-8 p-0 lg:flex"
+          :disabled="currentPage === 1"
+          @click="handlePageChange(1)"
+        >
           <span class="sr-only">Go to first page</span>
           <ChevronsLeftIcon class="size-4" />
         </Button>
-        <Button variant="outline" class="size-8 p-0" :disabled="!table.getCanPreviousPage()"
-          @click="table.previousPage()">
+        <Button
+          variant="outline"
+          class="size-8 p-0"
+          :disabled="!pagination.prev_page_url"
+          @click="handlePageChange(currentPage - 1)"
+        >
           <span class="sr-only">Go to previous page</span>
           <ChevronLeftIcon class="size-4" />
         </Button>
-        <Button variant="outline" class="size-8 p-0" :disabled="!table.getCanNextPage()" @click="table.nextPage()">
+        <Button
+          variant="outline"
+          class="size-8 p-0"
+          :disabled="!pagination.next_page_url"
+          @click="handlePageChange(currentPage + 1)"
+        >
           <span class="sr-only">Go to next page</span>
           <ChevronRightIcon class="size-4" />
         </Button>
-        <Button variant="outline" class="hidden size-8 p-0 lg:flex" :disabled="!table.getCanNextPage()"
-          @click="table.setPageIndex(table.getPageCount() - 1)">
+        <Button
+          variant="outline"
+          class="hidden size-8 p-0 lg:flex"
+          :disabled="currentPage === totalPages"
+          @click="handlePageChange(totalPages)"
+        >
           <span class="sr-only">Go to last page</span>
           <ChevronsRightIcon class="size-4" />
         </Button>

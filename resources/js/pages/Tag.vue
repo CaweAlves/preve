@@ -8,10 +8,11 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import tagRoutes from '@/routes/tags';
 import { type BreadcrumbItem } from '@/types';
+import type { IPaginate } from '@/types/models/paginated';
 import type { ITag } from '@/types/models/tag';
 
 interface Props {
-  tags: ITag[];
+  tags: IPaginate<ITag>;
 }
 
 defineProps<Props>()
@@ -40,7 +41,7 @@ const breadcrumbs: BreadcrumbItem[] = [
       <CreateTag />
 
       <!-- CONTAINER -->
-      <ContainerTag :tags />
+      <ContainerTag :tags="tags" />
     </div>
   </AppLayout>
 </template>

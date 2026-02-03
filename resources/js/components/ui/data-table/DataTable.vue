@@ -3,7 +3,6 @@ import type { ColumnDef } from '@tanstack/vue-table';
 import {
   FlexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   useVueTable,
 } from '@tanstack/vue-table';
 
@@ -25,7 +24,8 @@ const table = useVueTable({
   get data() { return props.data },
   get columns() { return props.columns },
   getCoreRowModel: getCoreRowModel(),
-  getPaginationRowModel: getPaginationRowModel(),
+  manualPagination: true,
+  rowCount: props.data.length,
 })
 </script>
 
