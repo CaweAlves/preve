@@ -20,7 +20,7 @@ defineProps<Props>()
 <template>
   <div class="mt-4">
     <EmptyState
-      v-if="tags.data.length === 0"
+      v-if="tags.data.length === 0 && tags.current_page === 1"
       title="No tags yet"
       description="Start by creating your first tag"
       :showButton="false"

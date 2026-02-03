@@ -2,7 +2,7 @@
 import Button from '@/components/ui/button/Button.vue';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { type IPaginate } from '@/types/models/paginated';
-import { router } from '@inertiajs/vue3';
+import { paginationNavigate } from '@/utils/navigate';
 
 import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon } from 'lucide-vue-next';
 import { AcceptableValue } from 'reka-ui';
@@ -16,36 +16,15 @@ const currentPage = computed(() => props.pagination.current_page)
 const totalPages = computed(() => props.pagination.last_page)
 const pageSize = computed(() => props.pagination.per_page)
 
-const getQueryParams = (overrides: Record<string, any>) => {
-  const params = new URLSearchParams(window.location.search)
-
-  Object.entries(overrides).forEach(([key, value]) => {
-    if (value === null || value === undefined) {
-      params.delete(key);
-    } else {
-      params.set(key, String(value));
-    }
-  });
-
-  return Object.fromEntries(params.entries())
-}
-
-const navigate = (params: Record<string, any>) => {
-  router.get(window.location.pathname, getQueryParams(params), {
-    preserveState: true,
-    preserveScroll: true,
-  })
-}
-
 function handlePageSizeChange(value: AcceptableValue) {
-  navigate({
+  paginationNavigate({
     page: 1,
     per_page: Number(value),
   })
 }
 
 function handlePageChange(page: number) {
-  navigate({ page })
+  paginationNavigate({ page })
 }
 </script>
 
@@ -101,7 +80,7 @@ function handlePageChange(page: number) {
         <Button
           variant="outline"
           class="hidden size-8 p-0 lg:flex"
-          :disabled="currentPage === totalPages"
+          :disabled="currentPage >= totalPages"
           @click="handlePageChange(totalPages)"
         >
           <span class="sr-only">Go to last page</span>
