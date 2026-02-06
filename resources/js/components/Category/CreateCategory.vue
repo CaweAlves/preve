@@ -82,10 +82,14 @@ const createCategory = () => {
       <div class="flex flex-col justify-start gap-2">
         <Label for="color">Color</Label>
         <Select v-model="form.color">
-          <SelectTrigger class="w-full min-w-[150px]">
+          <SelectTrigger class="w-full min-w-38">
             <SelectValue placeholder="Select a color">
               <div v-if="form.color" class="flex items-center gap-2">
-                <div :class="cn('h-4 w-4 rounded', getColorClass(form.color, 'bg'))" />
+                <div
+                  :class="
+                    cn('h-4 w-4 rounded', getColorClass(form.color, 'picker'))
+                  "
+                />
                 <span>{{ capitalizeFirstLetter(form.color) }}</span>
               </div>
             </SelectValue>
@@ -93,14 +97,28 @@ const createCategory = () => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Color</SelectLabel>
-              <SelectItem
-                v-for="color in availableColors"
-                :value="color"
-                :key="color"
-              >
-                <div :class="cn('h-4 w-4 rounded', getColorClass(color, 'bg'))" />
-                <span>{{ capitalizeFirstLetter(color) }}</span>
-              </SelectItem>
+              <div class="grid grid-cols-4 gap-1">
+                <SelectItem
+                  v-for="color in availableColors"
+                  :value="color"
+                  :key="color"
+                  :class="
+                    cn(
+                      'flex aspect-square w-full! rounded-md p-0! pl-0.5!',
+                      'bg-transparent! hover:brightness-90 [&>span]:hidden',
+                    )
+                  "
+                >
+                  <div
+                    :class="
+                      cn(
+                        'aspect-square h-full min-h-7.5 w-full rounded',
+                        getColorClass(color, 'picker'),
+                      )
+                    "
+                  />
+                </SelectItem>
+              </div>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -110,9 +128,7 @@ const createCategory = () => {
       <div class="flex flex-col justify-start gap-2">
         <Label for="icon">Icon</Label>
         <Select v-model="form.icon">
-          <SelectTrigger
-            :class="cn('w-full min-w-[150px]', form.icon && 'pl-1')"
-          >
+          <SelectTrigger :class="cn('w-full min-w-38', form.icon && 'pl-1')">
             <SelectValue placeholder="Select an icon">
               <div
                 v-if="form.icon"
@@ -126,15 +142,20 @@ const createCategory = () => {
               >
                 <component
                   :is="getIconComponent(form.icon)"
-                  :class="cn('size-4', form.color && getColorClass(form.color, 'text'))"
+                  :class="
+                    cn(
+                      'size-4',
+                      form.color && getColorClass(form.color, 'text'),
+                    )
+                  "
                 />
               </div>
             </SelectValue>
           </SelectTrigger>
-          <SelectContent class="min-w-[150px]">
+          <SelectContent class="min-w-38">
             <SelectGroup>
               <SelectLabel>Icon</SelectLabel>
-              <div class="grid grid-cols-5 gap-1">
+              <div class="grid grid-cols-4 gap-1">
                 <SelectItem
                   v-for="icon in availableIcons"
                   :value="icon"
