@@ -13,8 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { TRANSACTION_TYPE } from '@/enums/transaction-type';
 import { FREQUENCY_TYPE } from '@/enums/frequency-type';
+import { TRANSACTION_TYPE } from '@/enums/transaction-type';
 import {
   extractNumbers,
   formatCentsToDisplay,
@@ -38,7 +38,7 @@ const rawAmount = ref('');
 
 const form = useForm<IRecurringTransaction>({
   category_id: 0,
-  tag_id: null,
+  tag_id: undefined,
   amount: 0,
   frequency: FREQUENCY_TYPE.MONTHLY,
   type: TRANSACTION_TYPE.EXPENSE,
@@ -46,7 +46,7 @@ const form = useForm<IRecurringTransaction>({
   is_active: true,
   day_of_month: new Date().getDate(),
   start_date: new Date().toISOString().split('T')[0],
-  end_date: null,
+  end_date: undefined,
 });
 
 const displayAmount = computed({

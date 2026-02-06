@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { InertiaForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
 import { ArrowDownLeft, ArrowUpRight } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
@@ -70,7 +70,6 @@ const filteredCategories = computed(() => {
             }
           }
         "
-        class="text-right font-mono"
       />
       <InputError :message="form.errors.amount" />
     </div>
