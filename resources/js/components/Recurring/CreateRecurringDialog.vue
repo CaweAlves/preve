@@ -24,6 +24,7 @@ import { store } from '@/routes/recurring';
 import { type ICategory } from '@/types/models/category';
 import { IRecurringTransaction } from '@/types/models/recurring-transaction';
 import { type ITag } from '@/types/models/tag';
+import { formatTransactionDate } from '@/utils/formatDate';
 
 const open = defineModel<boolean>('open', { required: true });
 
@@ -45,7 +46,7 @@ const form = useForm<IRecurringTransaction>({
   description: '',
   is_active: true,
   day_of_month: new Date().getDate(),
-  start_date: new Date().toISOString().split('T')[0],
+  start_date: formatTransactionDate(),
   end_date: undefined,
 });
 

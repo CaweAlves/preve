@@ -22,6 +22,7 @@ import { update } from '@/routes/recurring';
 import { type ICategory } from '@/types/models/category';
 import { type IRecurringTransaction } from '@/types/models/recurring-transaction';
 import { type ITag } from '@/types/models/tag';
+import { formatTransactionDate } from '@/utils/formatDate';
 
 const open = defineModel<boolean>('open', { required: true });
 
@@ -37,6 +38,7 @@ const rawAmount = ref(props.recurringTransaction.amount.toString());
 
 const form = useForm<IRecurringTransaction>({
   ...props.recurringTransaction,
+  start_date: formatTransactionDate(props.recurringTransaction.start_date),
 });
 
 const displayAmount = computed({
