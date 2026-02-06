@@ -1,12 +1,5 @@
+import type { CategoryColor } from '@/lib/category-colors'
 import type { TransactionType } from '@/types/models/transaction';
-
-export type CategoryColor =
-    | 'red'
-    | 'blue'
-    | 'green'
-    | 'yellow'
-    | 'orange'
-    | 'purple';
 
 export interface ICategory {
     id: number;

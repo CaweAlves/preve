@@ -16,19 +16,35 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TRANSACTION_TYPE } from '@/enums/transaction-type';
-import { availableColors, getColorClass } from '@/lib/category-colors';
-import { availableIcons, getIconComponent } from '@/lib/category-icons';
+import {
+  availableColors,
+  CategoryColor,
+  getColorClass,
+} from '@/lib/category-colors';
+import {
+  availableIcons,
+  CategoryIcon,
+  getIconComponent,
+} from '@/lib/category-icons';
 import { capitalizeFirstLetter, cn } from '@/lib/utils';
 import { store } from '@/routes/categories';
 
 const types = TRANSACTION_TYPE;
 
-const form = useForm({
+interface IFormState {
+  name: string;
+  description: string;
+  type: string;
+  color?: CategoryColor;
+  icon?: CategoryIcon;
+}
+
+const form = useForm<IFormState>({
   name: '',
   description: '',
   type: 'expense',
-  color: '',
-  icon: '',
+  color: undefined,
+  icon: undefined,
 });
 
 const createCategory = () => {
@@ -64,7 +80,7 @@ const createCategory = () => {
       <div class="flex flex-col justify-start gap-2">
         <Label for="type">Type</Label>
         <Select v-model="form.type">
-          <SelectTrigger class="w-full min-w-[150px]">
+          <SelectTrigger class="w-full min-w-37.5">
             <SelectValue placeholder="Select a type" />
           </SelectTrigger>
           <SelectContent>
@@ -102,12 +118,7 @@ const createCategory = () => {
                   v-for="color in availableColors"
                   :value="color"
                   :key="color"
-                  :class="
-                    cn(
-                      'flex aspect-square w-full! rounded-md p-0! pl-0.5!',
-                      'bg-transparent! hover:brightness-90 [&>span]:hidden',
-                    )
-                  "
+                  class="flex aspect-square w-full! rounded-md p-0! pl-0.5! bg-transparent! hover:brightness-90 [&>span]:hidden"
                 >
                   <div
                     :class="

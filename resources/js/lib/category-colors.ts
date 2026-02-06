@@ -140,11 +140,10 @@ const colorClassMap: Record<string, Record<ColorUtility, string>> = {
 /**
  * Return Tailwind class for color, utility and scale
  * @param color
- * @param utility - Type of utilitary (ex: 'bg', 'text', 'border', 'ring')
- * @param scale
+ * @param utility - Type of utility (ex: 'bg', 'text', 'border', 'ring')
  */
 export const getColorClass = (
-    color: string,
+    color: CategoryColor,
     utility: ColorUtility = 'bg',
 ): string => {
     return colorClassMap[color][utility];
