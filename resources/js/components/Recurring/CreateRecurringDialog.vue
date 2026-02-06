@@ -72,7 +72,7 @@ const createRecurring = () => {
 <template>
   <Dialog v-model:open="open">
     <form>
-      <DialogContent class="sm:max-w-[550px]">
+      <DialogContent class="sm:max-w-137.5">
         <DialogHeader>
           <DialogTitle>Create Recurring Transaction</DialogTitle>
           <DialogDescription>

@@ -56,36 +56,37 @@ const filteredCategories = computed(() => {
     <InputError :message="form.errors.type" />
   </div>
 
-  <!-- Name -->
-  <div class="grid gap-3">
-    <Label for="description"> Name </Label>
-    <Input
-      id="description"
-      placeholder="e.g., Netflix Subscription, Rent, Salary..."
-      v-model="form.description"
-    />
-    <InputError :message="form.errors.description" />
-  </div>
+  <div class="grid grid-cols-3 gap-4">
+    <!-- Name -->
+    <div class="grid gap-3 col-span-2">
+      <Label for="description"> Name </Label>
+      <Input
+        id="description"
+        placeholder="e.g., Netflix Subscription, Rent, Salary..."
+        v-model="form.description"
+      />
+      <InputError :message="form.errors.description" />
+    </div>
 
-  <!-- Amount -->
-  <div class="grid gap-3">
-    <Label for="amount"> Amount </Label>
-    <Input
-      id="amount"
-      type="text"
-      inputmode="numeric"
-      placeholder="0,00"
-      v-model="displayAmount"
-      @keypress="
-        (e: KeyboardEvent) => {
-          if (!/[0-9]/.test(e.key)) {
-            e.preventDefault();
+    <!-- Amount -->
+    <div class="grid gap-3">
+      <Label for="amount"> Amount </Label>
+      <Input
+        id="amount"
+        type="text"
+        inputmode="numeric"
+        placeholder="0,00"
+        v-model="displayAmount"
+        @keypress="
+          (e: KeyboardEvent) => {
+            if (!/[0-9]/.test(e.key)) {
+              e.preventDefault();
+            }
           }
-        }
-      "
-      class="text-right font-mono"
-    />
-    <InputError :message="form.errors.amount" />
+        "
+      />
+      <InputError :message="form.errors.amount" />
+    </div>
   </div>
 
   <!-- Category & Tag -->
@@ -166,7 +167,6 @@ const filteredCategories = computed(() => {
           max="31"
           placeholder="1-31"
           v-model.number="form.day_of_month"
-          class="text-right font-mono"
         />
         <InputError :message="form.errors.day_of_month" />
       </div>

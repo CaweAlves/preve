@@ -36,16 +36,7 @@ const props = defineProps<Props>();
 const rawAmount = ref(props.recurringTransaction.amount.toString());
 
 const form = useForm<IRecurringTransaction>({
-  category_id: props.recurringTransaction.category_id,
-  tag_id: props.recurringTransaction.tag_id,
-  amount: props.recurringTransaction.amount,
-  frequency: props.recurringTransaction.frequency,
-  type: props.recurringTransaction.type,
-  description: props.recurringTransaction.description,
-  is_active: props.recurringTransaction.is_active,
-  day_of_month: props.recurringTransaction.day_of_month,
-  start_date: props.recurringTransaction.start_date,
-  end_date: props.recurringTransaction.end_date ?? null,
+  ...props.recurringTransaction,
 });
 
 const displayAmount = computed({
@@ -58,7 +49,13 @@ const displayAmount = computed({
 });
 
 const updateRecurring = () => {
-  form.submit(update(props.recurringTransaction.id!), {
+  const transactionId = props.recurringTransaction.id;
+
+  if (!transactionId) {
+    return;
+  }
+
+  form.submit(update(transactionId), {
     onSuccess: () => {
       open.value = false;
     },
@@ -69,7 +66,7 @@ const updateRecurring = () => {
 <template>
   <Dialog v-model:open="open">
     <form>
-      <DialogContent class="sm:max-w-[550px]">
+      <DialogContent class="sm:max-w-137.5">
         <DialogHeader>
           <DialogTitle>Edit Recurring Transaction</DialogTitle>
           <DialogDescription>
