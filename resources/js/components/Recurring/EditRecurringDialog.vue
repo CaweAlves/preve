@@ -39,6 +39,7 @@ const rawAmount = ref(props.recurringTransaction.amount.toString());
 const form = useForm<IRecurringTransaction>({
   ...props.recurringTransaction,
   start_date: formatTransactionDate(props.recurringTransaction.start_date),
+  end_date: formatTransactionDate(props.recurringTransaction.end_date),
 });
 
 const displayAmount = computed({
