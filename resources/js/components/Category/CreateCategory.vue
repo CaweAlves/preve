@@ -83,7 +83,7 @@ const createCategory = () => {
       <div class="flex flex-col justify-start gap-2">
         <Label for="color">Color</Label>
         <Select v-model="form.color">
-          <SelectTrigger class="w-full min-w-38">
+          <SelectTrigger class="w-full min-w-37.5">
             <SelectValue placeholder="Select a color">
               <div v-if="form.color" class="flex items-center gap-2">
                 <div
