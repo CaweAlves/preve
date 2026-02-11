@@ -17,7 +17,6 @@ beforeEach(function () {
 it('should be able to create category', function () {
     $response = $this->post(route('categories.store'), [
         'name'  => 'New Category',
-        'slug'  => 'new-category',
         'color' => CategoryColor::BLUE->value,
         'icon'  => CategoryIcon::BOOK->value,
         'type'  => TransactionType::EXPENSE->value,
@@ -27,7 +26,6 @@ it('should be able to create category', function () {
 
     $this->assertDatabaseHas('categories', [
         'name'  => 'New Category',
-        'slug'  => 'new-category',
         'color' => CategoryColor::BLUE->value,
         'icon'  => CategoryIcon::BOOK->value,
         'type'  => TransactionType::EXPENSE->value,
