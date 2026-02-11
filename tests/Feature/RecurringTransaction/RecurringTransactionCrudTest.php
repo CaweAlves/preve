@@ -1,0 +1,130 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Enums\FrequencyType;
+use App\Enums\TransactionType;
+use App\Models\Category;
+use App\Models\RecurringTransaction;
+use App\Models\User;
+
+beforeEach(function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+});
+
+// CREATE
+it('should be able to create recurring transaction', function () {
+    $category = Category::factory()->create([
+        'user_id' => auth()->id(),
+        'type'    => TransactionType::EXPENSE->value,
+    ]);
+
+    $response = $this->post(route('recurring.store'), [
+        'category_id'  => $category->id,
+        'tag_id'       => null,
+        'amount'       => 99.90,
+        'type'         => TransactionType::EXPENSE->value,
+        'frequency'    => FrequencyType::MONTHLY->value,
+        'description'  => 'Internet Service',
+        'is_active'    => true,
+        'day_of_month' => 20,
+        'start_date'   => '2026-01-01',
+        'end_date'     => null,
+    ]);
+
+    $response->assertRedirect(route('recurring.index'));
+
+    $this->assertDatabaseHas('recurring_transactions', [
+        'category_id'  => $category->id,
+        'amount'       => 99.90,
+        'type'         => TransactionType::EXPENSE->value,
+        'frequency'    => FrequencyType::MONTHLY->value,
+        'description'  => 'Internet Service',
+        'day_of_month' => 20,
+    ]);
+});
+
+// READ
+it('should be able to view recurring transactions index', function () {
+    $response = $this->get(route('recurring.index'));
+
+    $response->assertStatus(200);
+});
+
+// EDIT
+it('should be able to edit recurring transaction', function () {
+    $category = Category::factory()->create([
+        'user_id' => auth()->id(),
+        'type'    => TransactionType::EXPENSE->value,
+    ]);
+
+    $recurring = RecurringTransaction::factory()->create([
+        'user_id'      => auth()->id(),
+        'category_id'  => $category->id,
+        'amount'       => 99.90,
+        'type'         => TransactionType::EXPENSE->value,
+        'frequency'    => FrequencyType::MONTHLY->value,
+        'description'  => 'Internet Service',
+        'day_of_month' => 20,
+    ]);
+
+    $response = $this->put(route('recurring.update', $recurring->id), [
+        'category_id'  => $category->id,
+        'amount'       => 129.90,
+        'type'         => TransactionType::EXPENSE->value,
+        'frequency'    => FrequencyType::MONTHLY->value,
+        'description'  => 'Updated Internet Service',
+        'day_of_month' => 15,
+        'start_date'   => '2026-01-01',
+    ]);
+
+    $response->assertRedirect(route('recurring.index'));
+
+    $this->assertDatabaseHas('recurring_transactions', [
+        'id'           => $recurring->id,
+        'amount'       => 129.90,
+        'description'  => 'Updated Internet Service',
+        'day_of_month' => 15,
+    ]);
+});
+
+it('should not be able to edit recurring transaction that you do not own', function () {
+    $recurring = RecurringTransaction::factory()->create();
+
+    $category = Category::factory()->create([
+        'user_id' => auth()->id(),
+        'type'    => TransactionType::EXPENSE->value,
+    ]);
+
+    $response = $this->put(route('recurring.update', $recurring->id), [
+        'category_id'  => $category->id,
+        'amount'       => 200.00,
+        'type'         => TransactionType::EXPENSE->value,
+        'frequency'    => FrequencyType::MONTHLY->value,
+        'description'  => 'Updated Recurring',
+        'day_of_month' => 10,
+        'start_date'   => '2026-01-01',
+    ]);
+
+    $response->assertStatus(403);
+});
+
+// DELETE
+it('should be able to delete recurring transaction', function () {
+    $recurring = RecurringTransaction::factory()->create([
+        'user_id' => auth()->id(),
+    ]);
+
+    $response = $this->delete(route('recurring.destroy', $recurring->id));
+
+    $response->assertRedirect(route('recurring.index'));
+});
+
+it('should not be able to delete recurring transaction that you do not own', function () {
+    $recurring = RecurringTransaction::factory()->create();
+
+    $response = $this->delete(route('recurring.destroy', $recurring->id));
+
+    $response->assertStatus(403);
+});
