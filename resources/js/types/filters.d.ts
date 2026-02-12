@@ -1,4 +1,4 @@
-export interface TransactionFilters {
+export interface ITransactionFilters {
     search?: string;
     type?: string;
     category_id?: string;
