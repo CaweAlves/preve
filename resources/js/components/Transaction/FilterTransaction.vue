@@ -45,7 +45,7 @@ const { form, activeCount, apply, clear } = useFilter<ITransactionFilters>(
                 </Badge>
             </Button>
         </SheetTrigger>
-        <SheetContent class="flex h-full flex-col bg-background sm:max-w-xl">
+        <SheetContent class="flex h-full flex-col bg-background w-screen translate-x-1 sm:translate-x-0 sm:max-w-2xl">
             <SheetHeader class="border-b border-border px-6 py-4">
                 <SheetTitle>Filter Transactions</SheetTitle>
                 <SheetDescription>
