@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Filters\TransactionFilter;
+use App\Http\Requests\IndexTransactionRequest;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -19,18 +21,21 @@ final class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(IndexTransactionRequest $request, TransactionFilter $filters): Response
     {
         $transactions = Auth::user()
             ->transactions()
             ->with(['category', 'tag'])
+            ->filter($filters)
             ->orderBy('transaction_date', 'desc')
             ->get();
 
         $categories = Auth::user()->categories()->get();
         $tags = Auth::user()->tags()->get();
 
-        return Inertia::render('Transaction', compact('transactions', 'categories', 'tags'));
+        $validatedFilters = $request->validated();
+
+        return Inertia::render('Transaction', compact('transactions', 'categories', 'tags', 'validatedFilters'));
     }
 
     /**
