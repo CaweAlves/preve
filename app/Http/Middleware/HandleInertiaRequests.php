@@ -44,6 +44,9 @@ final class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => !$request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'flash'       => [
+                'toast' => $request->session()->get('toast'),
+            ],
         ];
     }
 }
