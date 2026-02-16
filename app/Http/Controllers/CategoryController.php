@@ -44,7 +44,8 @@ final class CategoryController extends Controller
 
         Auth::user()->categories()->create($validated);
 
-        return to_route('categories.index');
+        return to_route('categories.index')
+            ->with('toast', 'Category created successfully.');
     }
 
     /**
@@ -65,8 +66,8 @@ final class CategoryController extends Controller
 
         $category->update($request->all());
 
-        // TODO: retornar um Toast Message
-        return to_route('categories.index');
+        return to_route('categories.index')
+            ->with('toast', 'Category updated successfully.');
     }
 
     /**
@@ -78,7 +79,7 @@ final class CategoryController extends Controller
 
         $category->delete();
 
-        // TODO: retornar um toast message
-        return to_route('categories.index');
+        return to_route('categories.index')
+            ->with('toast', 'Category deleted successfully.');
     }
 }

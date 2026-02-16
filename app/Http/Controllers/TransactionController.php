@@ -47,7 +47,8 @@ final class TransactionController extends Controller
 
         Auth::user()->transactions()->create($validated);
 
-        return to_route('transactions.index');
+        return to_route('transactions.index')
+            ->with('toast', 'Transaction created successfully.');
     }
 
     /**
@@ -69,7 +70,8 @@ final class TransactionController extends Controller
         $transaction->update($request->all());
 
         // TODO: retornar um Toast Message
-        return to_route('transactions.index');
+        return to_route('transactions.index')
+            ->with('toast', 'Transaction updated successfully');
     }
 
     /**
@@ -81,7 +83,7 @@ final class TransactionController extends Controller
 
         $transaction->delete();
 
-        // TODO: retornar um toast message
-        return to_route('transactions.index');
+        return to_route('transactions.index')
+            ->with('toast', 'Transaction deleted successfully');
     }
 }

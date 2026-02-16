@@ -50,7 +50,8 @@ final class RecurringTransactionController extends Controller
 
         Auth::user()->recurringTransactions()->create($validated);
 
-        return to_route('recurring.index');
+        return to_route('recurring.index')
+            ->with('toast', 'Recurring transaction created successfully.');
     }
 
     /**
@@ -71,8 +72,8 @@ final class RecurringTransactionController extends Controller
 
         $recurring->update($request->all());
 
-        // TODO: retornar um Toast Message
-        return to_route('recurring.index');
+        return to_route('recurring.index')
+            ->with('toast', 'Recurring transaction updated successfully.');
     }
 
     /**
@@ -86,8 +87,8 @@ final class RecurringTransactionController extends Controller
             'is_active' => !$recurring->is_active,
         ]);
 
-        // TODO: retornar um Toast Message
-        return to_route('recurring.index');
+        return to_route('recurring.index')
+            ->with('toast', $recurring->is_active ? 'Recurring transaction activated.' : 'Recurring transaction deactivated.');
     }
 
     /**
@@ -99,7 +100,7 @@ final class RecurringTransactionController extends Controller
 
         $recurring->delete();
 
-        // TODO: retornar um Toast Message
-        return to_route('recurring.index');
+        return to_route('recurring.index')
+            ->with('toast', 'Recurring transaction deleted successfully.');
     }
 }
