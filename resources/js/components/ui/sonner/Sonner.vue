@@ -9,8 +9,16 @@ import { router, usePage } from '@inertiajs/vue3';
 const page = usePage();
 
 router.on('flash', (event) => {
-  if (event.detail.flash.message) {
-    toast(event.detail.flash.message as string);
+  const flash = event.detail.flash as { type?: string; message?: string };
+
+  if (!flash.message) return;
+
+  switch (flash.type) {
+    case 'success': toast.success(flash.message); break;
+    case 'error':   toast.error(flash.message);   break;
+    case 'warning': toast.warning(flash.message); break;
+    case 'info':    toast.info(flash.message);    break;
+    default:        toast(flash.message);
   }
 })
 
