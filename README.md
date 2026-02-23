@@ -37,12 +37,20 @@ A modern personal finance management application built with Laravel and Vue.js, 
 
 ## 📋 Prerequisites
 
+**With Docker (recommended):**
+- Docker & Docker Compose
+- Make (optional, but recommended)
+
+**Without Docker:**
 - PHP 8.4 or higher
 - Composer
 - Node.js 22 or higher
-- MySQL 8.0+
+- PostgreSQL 15+
+- Redis
 
 ## 🔧 Installation
+
+### With Docker (recommended)
 
 1. **Clone the repository**
 ```bash
@@ -50,45 +58,104 @@ git clone git@github.com:combizera/preve.git
 cd preve
 ```
 
-2. **Install PHP dependencies**
+2. **Environment setup**
 ```bash
-composer install
+cp .env.example .env
 ```
 
-3. **Install Node dependencies**
+3. **Configure your `.env`** for Docker
+```env
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=preve
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+REDIS_HOST=redis
+
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+```
+
+#### Using Make
+
 ```bash
+# Build and start all containers
+make up
+
+# Run migrations + seeders (optional)
+make seed
+```
+
+> Migrations run automatically on startup via the entrypoint script. `make seed` runs `migrate:fresh --seed` and resets all data.
+
+#### Using Docker Compose directly
+
+```bash
+# Build and start all containers
+docker compose -f docker-compose.local.yml up -d
+
+# Run migrations + seeders (optional)
+docker compose -f docker-compose.local.yml exec app php artisan migrate:fresh --seed
+```
+
+**Available services after startup:**
+
+| Service  | URL                          |
+|----------|------------------------------|
+| App      | http://localhost:8000        |
+| Vite HMR | http://localhost:5173        |
+| Mailpit  | http://localhost:8025        |
+| Database | localhost:5432 (PostgreSQL)  |
+
+---
+
+### Without Docker
+
+1. **Clone the repository**
+```bash
+git clone git@github.com:combizera/preve.git
+cd preve
+```
+
+2. **Install dependencies**
+```bash
+composer install
 npm install
 ```
 
-4. **Environment setup**
+3. **Environment setup**
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-5. **Configure your database** in `.env`
+4. **Configure your database** in `.env`
 ```env
-DB_CONNECTION=mysql
+DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
-DB_PORT=3306
+DB_PORT=5432
 DB_DATABASE=preve
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
 
-6. **Run migrations and seeders**
+5. **Run migrations and seeders**
 ```bash
 php artisan migrate --seed
 ```
 
-7. **Build frontend assets**
+6. **Build frontend assets**
 ```bash
 npm run build
 # or for development
 npm run dev
 ```
 
-8. **Start the server**
+7. **Start the server**
 ```bash
 php artisan serve
 ```
