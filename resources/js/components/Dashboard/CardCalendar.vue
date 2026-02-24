@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface Props {
   month: string;
   year: number;
+  isCurrent?: boolean;
 }
 
 defineProps<Props>();
@@ -11,12 +13,20 @@ defineProps<Props>();
 </script>
 
 <template>
-  <Button class="flex flex-col gap-1 h-full" variant="ghost" type="button">
-    <p class="pt-3 text-md font-medium text-foreground">
+  <button
+    type="button"
+    :class="cn(
+      'flex flex-col items-center h-full min-w-25 rounded transition-all duration-150 cursor-pointer',
+      isCurrent
+        ? 'from-primary to-primary/85 text-primary-foreground border border-zinc-950/25 bg-gradient-to-t shadow-sm shadow-zinc-950/20 hover:brightness-110 active:brightness-90 dark:border-white/20'
+        : 'hover:bg-muted-foreground/10 border border-transparent'
+    )"
+  >
+    <p class="pt-2 text-md font-medium">
       {{ month }}
     </p>
-    <span class="text-[10px] text-muted-foreground pb-3">
+    <span :class="cn('text-[10px] leading-[1]', isCurrent ? 'text-primary-foreground/70' : 'text-muted-foreground')">
       {{ year }}
     </span>
-  </Button>
+  </button>
 </template>

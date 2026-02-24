@@ -11,6 +11,9 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button';
 import CardCalendar from '@/components/Dashboard/CardCalendar.vue';
+import { MONTHS } from '@/lib/calendar';
+
+const currentMonth = new Date().getMonth();
 </script>
 
 <template>
@@ -34,65 +37,22 @@ import CardCalendar from '@/components/Dashboard/CardCalendar.vue';
     </Select>
 
     <!-- STRIP -->
-    <div class="border border-sidebar-border/70 dark:border-sidebar-border rounded-lg p-2 flex items-center gap-2 overflow-x-auto w-full h-18">
-      <Button variant="ghost" type="button">
+    <div class="border border-sidebar-border/70 dark:border-sidebar-border rounded-lg p-2 flex items-center gap-1 overflow-x-auto w-full h-18">
+      <Button variant="ghost" type="button" class="hover:bg-muted-foreground/10">
         <ChevronLeft />
       </Button>
 
       <ul class="w-full flex items-center gap-0 overflow-hidden  h-full">
         <CardCalendar
-          month="January"
-          year="2026"
-        />
-
-        <CardCalendar
-          month="February"
-          year="2026"
-        />
-
-        <CardCalendar
-          month="Mar"
-          year="2026"
-        />
-        <CardCalendar
-          month="Apr"
-          year="2026"
-        />
-        <CardCalendar
-          month="May"
-          year="2026"
-        />
-        <CardCalendar
-          month="Jun"
-          year="2026"
-        />
-        <CardCalendar
-          month="Jul"
-          year="2026"
-        />
-        <CardCalendar
-          month="Aug"
-          year="2026"
-        />
-        <CardCalendar
-          month="Sep"
-          year="2026"
-        />
-        <CardCalendar
-          month="Oct"
-          year="2026"
-        />
-        <CardCalendar
-          month="Nov"
-          year="2026"
-        />
-        <CardCalendar
-          month="Dec"
-          year="2026"
+          v-for="(month, index) in MONTHS"
+          :key="index"
+          :month="month"
+          :year="2026"
+          :isCurrent="index === currentMonth"
         />
       </ul>
 
-      <Button variant="ghost" type="button">
+      <Button variant="ghost" type="button" class="hover:bg-muted-foreground/10">
         <ChevronRight />
       </Button>
     </div>
