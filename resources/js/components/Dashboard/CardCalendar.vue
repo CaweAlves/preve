@@ -10,11 +10,15 @@ interface Props {
 
 defineProps<Props>();
 
+const emit = defineEmits<{
+  select: [];
+}>();
 </script>
 
 <template>
   <button
     type="button"
+    @click="emit('select')"
     :class="cn(
       'flex flex-col items-center h-full min-w-25 rounded transition-all duration-150 cursor-pointer',
       isCurrent
