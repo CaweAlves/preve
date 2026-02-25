@@ -96,7 +96,7 @@ const handleToCurrentMonth = () => {
 
       <!-- STRIP -->
       <div class="dark:border-sidebar-border rounded-lg p-2 flex items-center gap-0 overflow-x-auto w-full h-20">
-        <Button variant="ghost" type="button" class="hover:bg-muted-foreground/10" @click="navigate('prev')">
+        <Button variant="ghost" type="button" class="hover:bg-muted" @click="navigate('prev')">
           <ChevronLeft />
         </Button>
 
@@ -112,7 +112,7 @@ const handleToCurrentMonth = () => {
           />
         </ul>
 
-        <Button variant="ghost" type="button" class="hover:bg-muted-foreground/10" @click="navigate('next')">
+        <Button variant="ghost" type="button" class="hover:bg-muted" @click="navigate('next')">
           <ChevronRight />
         </Button>
       </div>
