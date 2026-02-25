@@ -13,6 +13,10 @@ import { Button } from '@/components/ui/button';
 import CardCalendar from '@/components/Dashboard/CardCalendar.vue';
 import { MONTHS } from '@/lib/calendar';
 import { ref, nextTick } from 'vue';
+import { toast } from 'vue-sonner';
+
+const MIN_YEAR = 2026;
+const MAX_YEAR = 2027;
 
 const now = new Date();
 const currentYear = now.getFullYear();
@@ -21,6 +25,14 @@ const currentMonth = now.getMonth();
 const selectedYear = ref<string>(String(currentYear));
 const selectedMonth = ref<number>(currentMonth);
 const stripRef = ref<HTMLUListElement | null>(null);
+
+const getCurrentMonth = () => {
+  const now = new Date();
+  return {
+    year: now.getFullYear(),
+    month: now.getMonth(),
+  };
+}
 
 const scrollToSelected = () => {
   nextTick(() => {
@@ -32,17 +44,27 @@ const scrollToSelected = () => {
 };
 
 const navigate = (direction: 'prev' | 'next') => {
+  const year = Number(selectedYear.value);
+
   if (direction === 'prev') {
     if (selectedMonth.value === 0) {
+      if (year - 1 < MIN_YEAR) {
+        toast.error('You have reached the earliest available year.');
+        return;
+      }
       selectedMonth.value = 11;
-      selectedYear.value = String(Number(selectedYear.value) - 1);
+      selectedYear.value = String(year - 1);
     } else {
       selectedMonth.value--;
     }
   } else {
     if (selectedMonth.value === 11) {
+      if (year + 1 > MAX_YEAR) {
+        toast.error('You have reached the latest available year.');
+        return;
+      }
       selectedMonth.value = 0;
-      selectedYear.value = String(Number(selectedYear.value) + 1);
+      selectedYear.value = String(year + 1);
     } else {
       selectedMonth.value++;
     }
@@ -92,7 +114,8 @@ const handleToCurrentMonth = () => {
             :key="index"
             :month="month"
             :year="Number(selectedYear)"
-            :isCurrent="index === selectedMonth"
+            :isSelected="index === selectedMonth"
+            :isCurrent="index === currentMonth && Number(selectedYear) === currentYear"
             @select="selectedMonth = index"
           />
         </ul>
