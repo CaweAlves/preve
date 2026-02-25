@@ -26,14 +26,6 @@ const selectedYear = ref<string>(String(currentYear));
 const selectedMonth = ref<number>(currentMonth);
 const stripRef = ref<HTMLUListElement | null>(null);
 
-const getCurrentMonth = () => {
-  const now = new Date();
-  return {
-    year: now.getFullYear(),
-    month: now.getMonth(),
-  };
-}
-
 const scrollToSelected = () => {
   nextTick(() => {
     if (!stripRef.value) return;
