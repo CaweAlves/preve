@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
-import { LogOut, Settings, SunMoon } from 'lucide-vue-next';
+import { LogOut, Settings } from 'lucide-vue-next';
 
 import {
   DropdownMenuGroup,
@@ -8,14 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import ThemeSwitch from '@/components/ThemeSwitch.vue';
 import UserInfo from '@/components/UserInfo.vue';
 import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
 import { IUser } from '@/types/models/user';
-
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { Button } from '@/components/ui/button';
 
 interface Props {
   user: IUser;
@@ -36,16 +33,15 @@ defineProps<Props>();
   </DropdownMenuLabel>
   <DropdownMenuSeparator />
   <DropdownMenuGroup>
-    <DropdownMenuItem :as-child="true">
-      <Button variant="link" class="block w-full cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <Switch id="theme" />
-          <Label for="theme">
-            Toggle theme
-          </Label>
-        </div>
-      </Button>
+    <DropdownMenuItem :as-child="true" @select.prevent>
+      <div class="flex w-full items-center justify-between px-2 py-1.5">
+        <span class="text-sm">Theme</span>
+        <ThemeSwitch />
+      </div>
     </DropdownMenuItem>
+  </DropdownMenuGroup>
+  <DropdownMenuSeparator />
+  <DropdownMenuGroup>
     <DropdownMenuItem :as-child="true">
       <Link class="block w-full cursor-pointer" :href="edit()" prefetch>
         <Settings class="mr-2 h-4 w-4" />
