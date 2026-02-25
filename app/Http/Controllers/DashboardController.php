@@ -13,13 +13,13 @@ final class DashboardController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        $transactions = Auth::user()
+        $latestTransactions = Auth::user()
             ->transactions()
             ->with('category')
             ->limit(5)
             ->orderBy('transaction_date', 'desc')
             ->get();
 
-        return Inertia::render('Dashboard', compact('transactions'));
+        return Inertia::render('Dashboard', compact('latestTransactions'));
     }
 }

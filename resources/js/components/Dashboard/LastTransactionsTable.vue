@@ -11,7 +11,7 @@ import transactions from '@/routes/transactions';
 import { formatTransactionDate } from '@/utils/formatDate';
 
 interface Props {
-  transactions: ITransaction[];
+  latestTransactions: ITransaction[];
 }
 
 defineProps<Props>();
@@ -36,7 +36,7 @@ function getAmountClass(type: string) {
     </TableHeader>
 
     <TableBody>
-      <TableRow v-for="transaction in transactions" :key="transaction.id">
+      <TableRow v-for="transaction in latestTransactions" :key="transaction.id">
         <TableCell class="space-y-1">
           <p class="text-sm text-muted-foreground">
             {{ transaction.description }}

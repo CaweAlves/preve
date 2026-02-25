@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface Props {
-  transactions: ITransaction[];
+  latestTransactions: ITransaction[];
 }
 
 defineProps<Props>();
@@ -52,7 +52,7 @@ defineProps<Props>();
       </div>
 
       <!-- LAST TRANSACTIONS -->
-      <LastTransactionsTable :transactions />
+      <LastTransactionsTable :latestTransactions />
     </div>
   </AppLayout>
 </template>
