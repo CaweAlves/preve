@@ -15,8 +15,9 @@ final class DashboardController extends Controller
     {
         $transactions = Auth::user()
             ->transactions()
-            ->limit(10)
-            ->orderBy('created_at', 'desc')
+            ->with('category')
+            ->limit(5)
+            ->orderBy('transaction_date', 'desc')
             ->get();
 
         return Inertia::render('Dashboard', compact('transactions'));

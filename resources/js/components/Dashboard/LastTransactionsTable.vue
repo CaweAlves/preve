@@ -5,6 +5,8 @@ import { ITransaction } from '@/types/models/transaction';
 import { cn } from '@/lib/utils';
 import { formatCentsToDisplay } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
+import { getIconComponent } from '@/lib/category-icons';
+import { formatTransactionDate } from '@/utils/formatDate';
 
 interface Props {
   transactions: ITransaction[];
@@ -33,8 +35,19 @@ function getAmountClass(type: string) {
 
     <TableBody>
       <TableRow v-for="transaction in transactions" :key="transaction.id">
-        <TableCell class="flex items-center gap-3">
-          <p class="text-sm text-muted-foreground">{{ transaction.description }}</p>
+        <TableCell class="space-y-1">
+          <p class="text-sm text-muted-foreground">
+            {{ transaction.description }}
+          </p>
+
+          <div class="flex items-center gap-1 text-xs leading-none font-medium text-muted-foreground">
+            <component :is="getIconComponent(transaction.category?.icon ?? null)" :size="14" />
+            {{ transaction.category?.name }}
+            •
+            <span class="ml-1">
+              {{ formatTransactionDate(transaction.transaction_date) }}
+            </span>
+          </div>
         </TableCell>
 
         <TableCell class="text-right">
@@ -48,7 +61,7 @@ function getAmountClass(type: string) {
     <TableFooter>
       <TableRow>
         <TableCell :colspan="2" class="py-0">
-          <Button variant="ghost" size="sm" class="w-full text-muted-foreground hover:bg-muted-foreground/10">
+          <Button variant="ghost" size="sm" class="w-full text-muted-foreground hover:bg-transparent hover:underline">
             View All
           </Button>
         </TableCell>
