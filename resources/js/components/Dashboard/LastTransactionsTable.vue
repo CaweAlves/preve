@@ -1,11 +1,13 @@
 <script setup lang="ts">
 
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Link } from '@inertiajs/vue3';
 import { ITransaction } from '@/types/models/transaction';
 import { cn } from '@/lib/utils';
 import { formatCentsToDisplay } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
 import { getIconComponent } from '@/lib/category-icons';
+import transactions from '@/routes/transactions';
 import { formatTransactionDate } from '@/utils/formatDate';
 
 interface Props {
@@ -61,9 +63,11 @@ function getAmountClass(type: string) {
     <TableFooter>
       <TableRow>
         <TableCell :colspan="2" class="py-0">
-          <Button variant="ghost" size="sm" class="w-full text-muted-foreground hover:bg-transparent hover:underline">
-            View All
-          </Button>
+          <Link :href="transactions.index.url()">
+            <Button variant="ghost" size="sm" class="w-full text-muted-foreground hover:bg-transparent hover:underline">
+              View All
+            </Button>
+          </Link>
         </TableCell>
       </TableRow>
     </TableFooter>
