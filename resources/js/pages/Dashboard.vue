@@ -8,6 +8,8 @@ import { type BreadcrumbItem } from '@/types';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import HorizontalCalendarStrip from '@/components/Dashboard/HorizontalCalendarStrip.vue';
+import LastTransactionsTable from '@/components/Dashboard/LastTransactionsTable.vue';
+import { ITransaction } from '@/types/models/transaction';
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -15,6 +17,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     href: dashboard().url,
   },
 ];
+
+interface Props {
+  transactions: ITransaction[];
+}
+
+defineProps<Props>();
 </script>
 
 <template>
@@ -37,28 +45,14 @@ const breadcrumbs: BreadcrumbItem[] = [
       <HorizontalCalendarStrip />
 
       <!-- PLACEHOLDER -->
-      <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-        <div
-          class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-        >
-          <PlaceholderPattern />
-        </div>
-        <div
-          class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-        >
-          <PlaceholderPattern />
-        </div>
-        <div
-          class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-        >
-          <PlaceholderPattern />
-        </div>
-      </div>
       <div
-        class="relative min-h-full flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
+        class="relative min-h-100 flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
       >
         <PlaceholderPattern />
       </div>
+
+      <!-- LAST TRANSACTIONS -->
+      <LastTransactionsTable :transactions />
     </div>
   </AppLayout>
 </template>
