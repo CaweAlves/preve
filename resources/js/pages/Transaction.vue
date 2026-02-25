@@ -64,6 +64,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         </div>
       </Heading>
 
+      <!-- TRANSACTIONS -->
       <ContainerTransactions
         :transactions="transactions"
         @create="openCreateDialog"

@@ -31,7 +31,7 @@ const amountClass = computed(() =>
   cn(
     'text-sm font-medium',
     props.transaction.type === 'expense'
-      ? "text-foreground before:content-['-']"
+      ? "text-foreground/70 before:content-['-']"
       : 'text-positive',
   ),
 );

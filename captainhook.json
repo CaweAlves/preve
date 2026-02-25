@@ -15,12 +15,6 @@
             },
             {
                 "action": "\\GitHooks\\PHPStan"
-            },
-            {
-                "action": "composer test",
-                "options": {
-                    "label": "🧪 Running Pest"
-                }
             }
         ]
     },
