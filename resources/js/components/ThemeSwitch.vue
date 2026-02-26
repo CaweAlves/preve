@@ -1,37 +1,26 @@
 <script setup lang="ts">
-import { Moon, Sun } from 'lucide-vue-next';
-import { SwitchRoot, SwitchThumb } from 'reka-ui';
+import { Monitor, Moon, Sun } from 'lucide-vue-next';
 
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useAppearance } from '@/composables/useAppearance';
 
 const { appearance, updateAppearance } = useAppearance();
 
-const toggle = (checked: boolean) => {
-  updateAppearance(checked ? 'dark' : 'light');
+const onUpdate = (value: string | number) => {
+  updateAppearance(value as 'light' | 'dark' | 'system');
 };
 </script>
 
 <template>
-  <div>
-    <div class="relative inline-grid h-7 grid-cols-[1fr_1fr] items-center text-sm font-medium">
-      <SwitchRoot
-        :modelValue="appearance === 'dark'"
-        class="data-[state=checked]:bg-input/50 data-[state=unchecked]:bg-input/50 peer absolute inset-0 h-[inherit] w-auto cursor-pointer rounded-full [&_span]:h-full [&_span]:w-1/2 [&_span]:transition-transform [&_span]:duration-300 [&_span]:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] data-[state=checked]:[&_span]:translate-x-full rtl:data-[state=checked]:[&_span]:-translate-x-full"
-        @update:modelValue="toggle"
-      >
-        <SwitchThumb class="pointer-events-none block rounded-full bg-background shadow-xs" />
-      </SwitchRoot>
-      <span
-        class="peer-data-[state=checked]:text-muted-foreground/70 pointer-events-none relative ms-0.5 flex min-w-8 items-center justify-center text-center"
-      >
-        <Sun :size="16" :stroke-width="2" aria-hidden="true" />
-      </span>
-      <span
-        class="peer-data-[state=unchecked]:text-muted-foreground/70 pointer-events-none relative me-0.5 flex min-w-8 items-center justify-center text-center"
-      >
-        <Moon :size="16" :stroke-width="2" aria-hidden="true" />
-      </span>
-    </div>
-    <span class="sr-only">Toggle theme</span>
-  </div>
+  <ToggleGroup :model-value="appearance" class="h-7 p-0.5" @update:model-value="onUpdate">
+    <ToggleGroupItem value="system" class="h-full px-2" aria-label="System theme">
+      <Monitor :size="14" :stroke-width="2" />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="light" class="h-full px-2" aria-label="Light theme">
+      <Sun :size="14" :stroke-width="2" />
+    </ToggleGroupItem>
+    <ToggleGroupItem value="dark" class="h-full px-2" aria-label="Dark theme">
+      <Moon :size="14" :stroke-width="2" />
+    </ToggleGroupItem>
+  </ToggleGroup>
 </template>
