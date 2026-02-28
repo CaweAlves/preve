@@ -39,6 +39,27 @@ it('should be able to create transaction', function () {
     ]);
 });
 
+it('should not be able to create transaction if type does not match category type', function () {
+    $category = Category::factory()->create([
+        'user_id' => auth()->id(),
+        'type'    => TransactionType::INCOME->value,
+    ]);
+
+    $response = $this->post(route('transactions.store'), [
+        'category_id'      => $category->id,
+        'tag_id'           => null,
+        'amount'           => 150.00,
+        'type'             => TransactionType::EXPENSE->value,
+        'description'      => 'Grocery shopping',
+        'notes'            => null,
+        'transaction_date' => '2026-01-15',
+    ]);
+
+    $response->assertSessionHasErrors([
+        'category_id' => 'The selected category must be of type expense.',
+    ]);
+});
+
 // READ
 it('should be able to view transactions index', function () {
     $response = $this->get(route('transactions.index'));
@@ -75,6 +96,33 @@ it('should be able to edit transaction', function () {
         'id'          => $transaction->id,
         'amount'      => 200.00,
         'description' => 'Updated Salary',
+    ]);
+});
+
+it('should not be able to edit transaction type to mismatch its category type', function () {
+    $category = Category::factory()->create([
+        'user_id' => auth()->id(),
+        'type'    => TransactionType::INCOME->value,
+    ]);
+
+    $transaction = Transaction::factory()->create([
+        'user_id'     => auth()->id(),
+        'category_id' => $category->id,
+        'amount'      => 100.00,
+        'type'        => TransactionType::INCOME->value,
+        'description' => 'Salary',
+    ]);
+
+    $response = $this->put(route('transactions.update', $transaction->id), [
+        'category_id'      => $category->id,
+        'amount'           => 100.00,
+        'type'             => TransactionType::EXPENSE->value,
+        'description'      => 'Updated Salary',
+        'transaction_date' => '2026-01-20',
+    ]);
+
+    $response->assertSessionHasErrors([
+        'category_id' => 'The selected category must be of type expense.',
     ]);
 });
 
